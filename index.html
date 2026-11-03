@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Laboratorio de la clase 2: coloreo de grafos y Sudoku con celdas editables de Python que se ejecutan en el navegador.">
+<title>Clase 2 · Laboratorio de restricciones</title>
+<style>
+:root{color-scheme:light;--paper:#fbfaff;--ink:#30364f;--muted:#60677e;--line:#dddff0;--green:#e0dcfa;--purple:#f6dfd9;--blue:#e3edff;--peach:#f8e3d7;--red:#8c423d}
+*{box-sizing:border-box}body{margin:0;background:#eeeefa;color:var(--ink);font:16px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,textarea,select{font:inherit}button,a,input,textarea,summary,select{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{opacity:.5;cursor:default}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid #7860a6;outline-offset:4px}button,a{touch-action:manipulation}a{color:#65519b}button{border:1px solid #d6d5e9;border-radius:10px;padding:9px 14px;min-height:42px;background:#fcfbff;color:var(--ink);font-size:14px;font-weight:600}button:hover:not(:disabled){background:#ede7fc}button.primary{background:#dfd3f7;border-color:#c8b5e7}button.primary:hover:not(:disabled){background:#d2c1f1}h1,h2,h3,p{margin-top:0}h1,h2,h3{line-height:1.16}h1{font-size:clamp(32px,4.8vw,56px);letter-spacing:-.055em;font-weight:650;margin-bottom:16px}h2{font-size:30px;letter-spacing:-.035em;margin-bottom:10px}h3{font-size:18px;margin-bottom:10px}p{color:var(--muted)}small,.small{font-size:13px}.shell{max-width:1450px;margin:22px auto;background:var(--paper);padding:30px clamp(18px,3vw,46px);border:1px solid #dddcef;border-radius:26px;box-shadow:0 20px 60px #61528710}.topline,.row,.toolbar,.cell-top,.view-heading{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.topline{justify-content:space-between;font-size:13px;color:var(--muted);padding-bottom:28px}.course{letter-spacing:.12em;text-transform:uppercase;font-weight:650}.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:center;padding:4px 0 28px}.hero p{max-width:59ch;margin-bottom:0}.intro-card{border:1px solid #d7dff3;background:#e8effc;border-radius:18px;padding:20px 24px;font-size:14px}.intro-card ol{margin:8px 0 0;padding-left:20px}.intro-card li{padding:3px 0}.tabs{display:flex;gap:6px;background:#efedf9;border:1px solid #dedcef;border-radius:14px;padding:6px;margin-bottom:24px}.tab{flex:1;background:transparent;border:0;padding:13px}.tab[aria-selected="true"]{background:var(--purple);color:#794c47;box-shadow:0 2px 8px #7166850b}.tab:first-child[aria-selected="true"]{background:var(--green);color:#4f3d79}.tab span{opacity:.65;margin-right:10px}.toolbar{padding:14px 0;margin-bottom:14px;justify-content:space-between}.toolbar p{margin:0}.runtime{display:inline-flex;align-items:center;gap:8px;font-size:13px}.dot{height:8px;width:8px;border-radius:50%;background:#a9afc7}.runtime[data-state="ready"] .dot{background:#4c807d}.runtime[data-state="loading"] .dot,.runtime[data-state="busy"] .dot{background:#b28b4f}.runtime[data-state="error"] .dot{background:#b35c53}.layout{display:grid;grid-template-columns:minmax(0,1.24fr) minmax(340px,.86fr);gap:28px;align-items:start}.notebook,.visual{min-width:0}.section-lead{margin:8px 0 20px}.section-lead p{margin-bottom:12px;font-size:15px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{font-size:12px;padding:5px 9px;border-radius:7px;background:#eee9fa;color:#5a4f7d}.cell{border:1px solid var(--line);border-radius:15px;background:#fffefe;margin-bottom:18px;overflow:hidden;transition:border-color .2s}.cell:focus-within{border-color:#ac98ce}.cell-top{padding:14px 17px;background:#eeeafa;justify-content:space-between}.cell-title{display:flex;align-items:center;gap:10px}.number{display:grid;place-items:center;border:1px solid #d7cce9;border-radius:7px;width:28px;height:28px;background:#fcfaff;font:12px ui-monospace,monospace}.cell h3{margin:0;font-size:15px;line-height:1.3}.cell .explain{font-size:14px;padding:14px 17px 0;margin:0}.editor-label{display:flex;justify-content:space-between;padding:10px 17px 6px;font-size:11px;color:#686b87;text-transform:uppercase;letter-spacing:.07em}.code{display:block;width:100%;resize:vertical;min-height:100px;max-height:850px;border:0;border-top:1px solid #e9e4f5;background:#f5f2fc;color:#34425d;padding:15px 17px;font:13px/1.7 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;tab-size:4;white-space:pre;overflow:auto;outline-offset:-3px!important}.cell-foot{padding:9px 17px;border-top:1px solid #e6e3f1;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;color:#62617e}.cell-foot button{font-size:12px;padding:5px 10px;min-height:32px}.output{margin:0;padding:15px 17px;font:13px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;background:#edf2ff;border-top:1px solid #d8e0f4;white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto}.output.error{color:#823c38;background:#faf0eb}.cell-status{font-size:12px}.cell[data-dirty="true"] .cell-status{color:#886129}.visual{position:sticky;top:18px;border:1px solid #d7daf0;border-radius:20px;background:#edf0fc;overflow:hidden}.view-heading{justify-content:space-between;padding:19px 22px 12px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.13em;font-weight:650;color:#656585}.view-heading h3{font-size:20px;margin:5px 0 0}.view-state{font-size:11px;border:1px solid #d3d7ed;border-radius:7px;padding:4px 8px;background:#f7f8ff}.view-body{padding:0 22px 21px}.view-body p{font-size:14px;margin-bottom:12px}.visual svg{width:100%;display:block;max-height:315px}.graph-node{cursor:pointer}.graph-node:focus{outline:0}.graph-node:focus circle{stroke:#79589e;stroke-width:4}.legend{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;margin:3px 0 15px}.legend span{display:flex;align-items:center;gap:5px}.swatch{display:inline-block;width:13px;height:13px;border-radius:50%;border:1px solid #70668b30}.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.stat{background:#fafaff;border:1px solid #dce0f0;border-radius:11px;padding:12px}.stat span{display:block;font-size:11px;color:#626d87}.stat strong{font-size:22px;font-weight:650;letter-spacing:-.035em}.note{padding:12px 14px;border:1px solid #ccd9f2;background:var(--blue);border-radius:10px;color:#3f557e;font-size:13px;line-height:1.5}.note p{margin:0;font-size:13px;color:inherit}.bad{background:#f4e1dc;border-color:#e5bfb5;color:#853f36}.gallery{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:12px 0}.gallery button{padding:6px 11px;font-size:14px}.gallery span{font-size:12px;text-align:center}.exercise{border-left:3px solid #c4a3cf;background:#f8e9e6;border-radius:0 11px 11px 0;padding:16px 18px;margin:22px 0}.exercise h3{font-size:16px}.exercise p{font-size:14px;margin:0}.formula{font:15px/1.5 ui-monospace,monospace;margin:10px 0;color:#4c5380}.board-wrap{display:flex;justify-content:center;margin:22px 0 12px}.sudoku{display:grid;grid-template-columns:repeat(4,1fr);width:270px;max-width:100%;border:2px solid #8686aa;border-radius:4px;overflow:hidden;background:#fffefe}.square{display:grid;place-items:center;aspect-ratio:1;min-height:0;border:0;border-right:1px solid #dadaeb;border-bottom:1px solid #dadaeb;border-radius:0;padding:0;font-size:23px;font-weight:500;background:#fffefe;position:relative}.square:nth-child(4n+2){border-right:2px solid #8686aa}.square:nth-child(n+5):nth-child(-n+8){border-bottom:2px solid #8686aa}.square:nth-child(4n){border-right:0}.square:nth-child(n+13){border-bottom:0}.square.given{font-weight:750;color:#4f4376;background:#ebe3f8}.square.peer{background:#e2ebfb}.square.selected{background:#f3d9cb!important;box-shadow:inset 0 0 0 3px #b4775e;z-index:1}.square .cell-coord{font-size:8px;position:absolute;top:2px;left:5px;color:#6a6481;font-weight:400}.square.new{color:#315e94}.candidate-lines{font-size:13px;margin:10px 0 12px;display:grid;gap:6px}.candidate-lines>div{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid #d8ddef;padding-bottom:4px}.candidate-lines strong{font-variant-numeric:tabular-nums}.space-note{font-size:12px;padding-top:12px;margin:0!important}.help{border:1px solid #dedff0;border-radius:12px;padding:15px 18px;margin-top:24px;font-size:13px;background:#f1f0fa}.help summary{font-weight:600;cursor:pointer}.help p{margin:12px 0 0}.help code{font-size:12px}.footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:20px;margin-top:30px;font-size:12px;color:var(--muted)}.global-message{margin:0 0 14px;padding:12px 16px;border-radius:10px;background:#ece2f7;font-size:14px;color:#584278}.global-message:empty{display:none}[hidden]{display:none!important}body[data-busy="true"] .run,body[data-busy="true"] .run-all{opacity:.5;pointer-events:none}
+
+/* Tema Aurora: lavanda, azul y durazno; acentos suaves y texto oscuro. */
+body{background:radial-gradient(ellipse at 5% 0%,#ded7f5 0,transparent 43%),radial-gradient(ellipse at 100% 12%,#fae3db 0,transparent 36%),#eef0fa;background-attachment:fixed}
+.shell{box-shadow:0 28px 85px #61528715;border-color:#e0dbef}
+.hero{background:radial-gradient(circle at 94% 0%,#f5dcd770,transparent 43%),linear-gradient(120deg,#eee7fb,#e8effc);border:1px solid #ded8ef;border-radius:23px;padding:28px 30px;margin:0 0 24px;gap:28px}
+h1{color:#303550}.hero h1 .accent{color:#795a9d}.hero>div>p{color:#59617c}.intro-card{background:#ffffff91;border-color:#ffffffc9;box-shadow:0 10px 28px #76619b09}.intro-card strong{color:#5a4780}.intro-card li::marker{color:#80659e;font-weight:700}
+.topline>span:last-child{background:#e7e6f8;color:#655581;padding:5px 12px;border-radius:99px}.course{color:#695989}
+.tabs{padding:7px;box-shadow:inset 0 1px 3px #72618e08}.tab{border-radius:10px}.tab[aria-selected="true"]{box-shadow:0 3px 12px #78547712}.tab span{display:inline-grid;place-items:center;width:25px;height:25px;border-radius:7px;background:#ffffff70;opacity:1;font-size:11px}
+button{transition:background .16s,border-color .16s,box-shadow .16s}button.primary{color:#503a77;box-shadow:0 4px 12px #6d509713}.toolbar{border-bottom:1px solid #e6e0f2;padding:4px 0 19px;margin-bottom:6px}.runtime{padding:7px 11px;border-radius:99px;background:#eeedf9;color:#5f5c7b}
+.cell{box-shadow:0 7px 22px #61528707}.cell:focus-within{box-shadow:0 0 0 3px #c5b4e51c,0 7px 22px #61528708}.number{color:#735395;font-weight:700}.cell-top .run{color:#654d87;border-color:#d9ceeb;background:#faf7ff}.chip:nth-child(2){background:#e3ecfc;color:#465f88}.chip:nth-child(3){background:#f7e5df;color:#83584e}
+.visual{background:linear-gradient(160deg,#eef0fd,#f5f0fb);box-shadow:0 12px 32px #635a9110}.view-heading{border-top:4px solid #b4a2d9}.view-heading h3{color:#45426c}.stat:first-child{background:#e6edfc;border-color:#d1ddf6}.stat:last-child{background:#f8e6df;border-color:#efd5ca}.stat strong{color:#4f4b78}.stat:last-child strong{color:#835649}.stat span{color:#60647e}.square:hover:not(:disabled){background:#ede6fa}.square.selected:hover{background:#f3d9cb}
+.exercise{border-color:#d5ad9f;background:#f9eae4}.exercise h3{color:#875b50}.output{border-left:3px solid #aabce3;color:#3c5277}.output.error{border-left-color:#d7978d}.help{background:#f0edf9}.footer{color:#78728a}
+/* El texto coloreado y el editor comparten medidas para mantener las líneas alineadas. */
+.editor{position:relative;background:#f5f2fc;overflow:hidden}
+.code,.highlight{font:13px/1.7 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;letter-spacing:normal;font-variant-ligatures:none;tab-size:4;white-space:pre;word-wrap:normal;overflow-wrap:normal;padding:15px 17px;border:0;border-top:1px solid #e9e4f5;border-radius:0}
+.highlight{position:absolute;inset:0;margin:0;pointer-events:none;overflow:hidden;color:#34425d;background:transparent}
+.code{position:relative;display:block;width:100%;background:transparent;color:transparent;-webkit-text-fill-color:transparent;caret-color:#5c437e;resize:vertical;overflow:auto}
+.code::selection{background:#d7caf2aa;color:transparent}.tok-keyword{color:#7942a0;font-weight:400}.tok-string{color:#146b69}.tok-comment{color:#70778d}.tok-number{color:#9b4d29}.tok-builtin{color:#2e60ac}.tok-operator{color:#74577c}
+.syntax-legend{display:flex;align-items:center;gap:7px 17px;flex-wrap:wrap;font-size:12px;color:#687089;padding:2px 0 19px}.syntax-legend span{display:inline-flex;align-items:center;gap:5px}.syntax-legend i{display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor}
+@media(max-width:1000px){.code,.highlight{font-size:12px}}
+@media(max-width:760px){.hero{padding:24px 20px;gap:18px;border-radius:18px}.code,.highlight{font-size:12px;padding:13px}.hero h1{font-size:38px}.topline{font-size:11px}.course{letter-spacing:.07em}.syntax-legend{font-size:11px;gap:5px 12px}}
+@media(forced-colors:active){.highlight{display:none}.code{color:CanvasText;-webkit-text-fill-color:CanvasText;caret-color:CanvasText}.code::selection{background:Highlight;color:HighlightText}}
+
+@media(min-width:1500px){.shell{margin:30px auto}}@media(max-width:1000px){.layout{grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:18px}.shell{margin:10px;padding:24px}.hero{gap:20px}.code{font-size:12px}.view-body{padding:0 16px 18px}.view-heading{padding:17px 16px 10px}}
+@media(max-width:760px){.shell{margin:0;border-radius:0;border:0;padding:22px 16px}.hero{grid-template-columns:1fr;gap:20px}.hero h1{max-width:14ch}.intro-card{padding:15px 19px}.layout{display:flex;flex-direction:column}.visual{position:relative;top:0;width:100%;order:-1}.notebook{width:100%}.visual svg{max-height:280px}.view-body{padding:0 18px 18px}.topline{padding-bottom:20px}.toolbar{align-items:flex-start;gap:16px}.tab{font-size:13px;padding:12px 8px}.tab span{margin-right:5px}.cell-top{padding:12px}.cell-title{gap:7px}.cell h3{font-size:14px}.code{font-size:12px;padding:13px}.stat-row{margin:10px 0}.stat{padding:9px 12px}.stat strong{font-size:19px}.board-wrap{margin:14px 0}.sudoku{width:236px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<main class="shell">
+ <div class="topline"><span class="course">Constraint Programming · Clase 02</span><span>Laboratorio en Python</span></div>
+ <header class="hero">
+  <div><h1>Decidir con<br><span class="accent">restricciones.</span></h1><p>Dos problemas, celdas de Python y resultados a la vista. Cambia un dato, ejecuta el código y observa qué soluciones quedan.</p></div>
+  <aside class="intro-card"><strong>Tu notebook, dentro del navegador</strong><ol><li>Elige coloreo o Sudoku.</li><li>Pulsa <b>Ejecutar ejercicio</b> para comenzar.</li><li>Edita una celda y vuelve a ejecutar desde el inicio.</li></ol></aside>
+ </header>
+ <div class="tabs" role="tablist" aria-label="Ejercicios de la clase 2"><button class="tab" role="tab" id="tab-grafo" aria-selected="true" aria-controls="panel-grafo" data-lab="grafo"><span>01</span> Coloreo de grafos</button><button class="tab" role="tab" id="tab-sudoku" aria-selected="false" aria-controls="panel-sudoku" tabindex="-1" data-lab="sudoku"><span>02</span> Sudoku 4 × 4</button></div>
+ <div class="toolbar"><div class="row"><button class="primary run-all" id="run-all">▶ Ejecutar ejercicio</button><button id="stop" disabled>Detener</button><button id="save-html">↓ Guardar mi archivo</button></div><span class="runtime" id="runtime" data-state="idle" role="status"><i class="dot"></i><span>Python se cargará al ejecutar</span></span></div>
+ <div class="syntax-legend" aria-label="Colores de sintaxis de Python"><span>En el código:</span><span class="tok-keyword"><i></i> palabras clave</span><span class="tok-builtin"><i></i> funciones</span><span class="tok-string"><i></i> textos</span><span class="tok-number"><i></i> números</span><span class="tok-comment"><i></i> comentarios</span></div>
+ <p class="global-message" id="message" role="status"></p>
+ <section id="panel-grafo" role="tabpanel" aria-labelledby="tab-grafo">
+  <div class="layout">
+   <div class="notebook"><div class="section-lead"><h2>Un color para cada nodo</h2><p>Los nodos unidos por una arista deben tener colores distintos. ¿Alcanzan tres colores? ¿Y cuatro?</p><div class="chips"><span class="chip" id="graph-x">X · 7 variables</span><span class="chip" id="graph-d">D · colores 1…k</span><span class="chip" id="graph-c">C · 12 desigualdades</span></div></div><div id="cells-grafo"></div><button class="add-cell" data-lab="grafo">＋ Mi celda de Python</button><aside class="exercise"><h3>Prueba tú</h3><p>Cambia <code>k = 4</code> por <code>k = 3</code> en la primera celda y ejecuta el ejercicio. Luego prueba con 5. Compara el espacio de búsqueda con el número de soluciones: son cantidades diferentes.</p></aside></div>
+   <aside class="visual" aria-label="Resultado visual del coloreo"><div class="view-heading"><div><div class="eyebrow">El modelo a la vista</div><h3>Grafo de incompatibilidades</h3></div><span class="view-state" id="graph-state">Vista inicial</span></div><div class="view-body"><svg id="graph" viewBox="0 0 430 390" role="group" aria-label="Siete nodos y sus incompatibilidades"></svg><div class="legend" id="graph-legend"></div><div class="gallery" id="graph-gallery" hidden><button id="graph-prev" aria-label="Coloreo anterior">←</button><span id="graph-index"></span><button id="graph-next" aria-label="Coloreo siguiente">→</button></div><div class="stat-row"><div class="stat"><span>Espacio antes de las reglas</span><strong id="graph-space">4⁷ = 16 384</strong></div><div class="stat"><span>Soluciones encontradas</span><strong id="graph-count">Por calcular</strong></div></div><div class="note" id="graph-note">Selecciona un nodo para resaltar sus vecinos. Ejecuta Python para calcular y pintar los coloreos.</div><p class="space-note">Las etiquetas son las de clase; este es un grafo abstracto de incompatibilidades, no un mapa geográfico.</p></div></aside>
+  </div>
+ </section>
+ <section id="panel-sudoku" role="tabpanel" aria-labelledby="tab-sudoku" hidden>
+  <div class="layout">
+   <div class="notebook"><div class="section-lead"><h2>Completar sin repetir</h2><p>Usa los números 1, 2, 3 y 4. No se repiten en ninguna fila, columna ni caja de 2 × 2. Las pistas se quedan en su lugar.</p><div class="chips"><span class="chip">X · 16 casillas</span><span class="chip">D · {1, 2, 3, 4}</span><span class="chip" id="sudoku-c">C · 12 AllDifferent + 6 pistas</span></div></div><div id="cells-sudoku"></div><button class="add-cell" data-lab="sudoku">＋ Mi celda de Python</button><aside class="exercise"><h3>Prueba tú</h3><p>Borra una pista: reemplázala por <code>0</code> en la primera celda. Vuelve a ejecutar y comprueba si aún queda una sola solución. Después prueba sin pistas: deberías encontrar 288 cuadrículas.</p></aside></div>
+   <aside class="visual" aria-label="Resultado visual del Sudoku"><div class="view-heading"><div><div class="eyebrow">Tres reglas, una casilla</div><h3>Sudoku de la clase</h3></div><span class="view-state" id="sudoku-state">Vista inicial</span></div><div class="view-body"><div class="row"><button id="show-clues" aria-pressed="true">Pistas</button><button id="show-solution" aria-pressed="false" disabled>Solución</button></div><div class="board-wrap"><div class="sudoku" id="board" role="group" aria-label="Sudoku 4 por 4"></div></div><div class="gallery" id="sudoku-gallery" hidden><button id="sudoku-prev" aria-label="Sudoku anterior">←</button><span id="sudoku-index"></span><button id="sudoku-next" aria-label="Sudoku siguiente">→</button></div><div id="candidates"></div><div class="stat-row"><div class="stat"><span>Espacio fijando las pistas</span><strong id="sudoku-space">4¹⁰ = 1 048 576</strong></div><div class="stat"><span>Soluciones encontradas</span><strong id="sudoku-count">Por calcular</strong></div></div><p class="space-note" id="sudoku-space-note">Sin fijar pistas: 4¹⁶ = 4 294 967 296 asignaciones. Las reglas reducen este conjunto.</p></div></aside>
+  </div>
+ </section>
+ <details class="help"><summary>Lo necesario para usar este archivo</summary><p><b>Python real:</b> se ejecuta en tu navegador con <a href="https://pyodide.org/en/stable/" target="_blank" rel="noopener">Pyodide</a> (314.0.7). Usa un navegador actualizado con internet; la primera carga descarga el motor y puede tardar. No hace falta instalar Python ni crear una cuenta.</p><p><b>Como una notebook:</b> las celdas de cada ejercicio comparten sus variables. <kbd>Shift + Enter</kbd> ejecuta la celda; <kbd>Tab</kbd> inserta cuatro espacios. Si cambias una celda anterior, vuelve a ejecutar el ejercicio. «Detener» reinicia la memoria de Python y conserva tu código.</p><p><b>Guarda tus cambios:</b> se intentan guardar en este navegador. «Guardar mi archivo» descarga un HTML con todas tus celdas editadas; puedes llevarlo a otra PC y volver a ejecutarlas. Los resultados se recalculan. No se garantiza el uso sin conexión.</p><p><b>Ayudas visuales:</b> <code>mostrar_grafo(nodos, aristas, colores, k)</code>, <code>mostrar_coloreos(nodos, aristas, soluciones, k)</code> y <code>mostrar_sudoku(pistas, soluciones)</code> dibujan datos calculados por Python. Son funciones incluidas en este archivo; no son parte del lenguaje.</p><p><b>Qué estamos resolviendo:</b> un CSP de satisfacción. Buscamos asignaciones que respeten todas las restricciones; no hay función objetivo. El solucionador aquí es una búsqueda sencilla escrita en Python, no un paquete industrial de CP.</p><p>Modelos de la clase 2 · Apt, <i>Principles of Constraint Programming</i> (2003), y Rossi, van Beek y Walsh, <i>Handbook of Constraint Programming</i> (2006).</p><p><button id="restart">Reiniciar Python</button> <button id="restore">Restaurar el ejercicio original</button></p></details>
+ <footer class="footer"><span>Clase 02 · Modelado como CSP</span><span>Variables → dominios → restricciones → soluciones</span></footer>
+</main>
+<script id="saved-code" type="application/json">null</script>
+<script>
+"use strict";
+// El documento original permite descargar un único HTML con las celdas editadas.
+const originalHTML = '<!doctype html>\n' + document.documentElement.outerHTML;
+const DEFAULTS = {
+ grafo: [
+  {title:'Variables y dominios', description:'Cada nodo es una variable. Su dominio contiene k colores. Antes de comprobar las aristas, cada uno de los siete nodos puede elegir cualquiera de esos colores.', code:`# Un número representa un color. Prueba después con 3 o 5.
+k = 4
+nodos = ["ARE", "CUS", "APU", "AYA", "PUN", "MOQ", "TAC"]
+dominio = list(range(1, k + 1))
+
+# Multiplicamos las opciones de las siete variables.
+espacio = k ** len(nodos)
+print("Dominio de cada nodo:", dominio)
+print(f"Espacio de búsqueda: {k}^{len(nodos)} = {espacio:,}")`},
+  {title:'Restricciones: los vecinos no repiten', description:'Cada pareja de la lista es una arista. La función devuelve False en cuanto encuentra dos vecinos con el mismo color.', code:`# Estas son las doce incompatibilidades del grafo de clase.
+aristas = [
+    ("TAC", "MOQ"), ("TAC", "PUN"), ("MOQ", "ARE"),
+    ("MOQ", "PUN"), ("ARE", "PUN"), ("ARE", "CUS"),
+    ("ARE", "APU"), ("ARE", "AYA"), ("CUS", "PUN"),
+    ("CUS", "APU"), ("CUS", "AYA"), ("APU", "AYA")
+]
+
+def cumple_reglas(colores):
+    # Revisamos una arista a la vez.
+    for a, b in aristas:
+        if colores[a] == colores[b]:
+            return False
+    return True
+
+mostrar_grafo(nodos, aristas, {}, k)
+print("Restricciones:", len(aristas), "pares con distinto color.")`},
+  {title:'Buscar y contar las soluciones', description:'product genera las combinaciones del espacio de búsqueda. Conservamos solo las que cumplen todas las reglas. El dibujo permite recorrerlas.', code:`from itertools import product
+
+# En este laboratorio usamos hasta cinco colores para que sea ágil.
+assert 1 <= k <= 5, "Prueba con un número de colores entre 1 y 5."
+soluciones = []
+
+for combinacion in product(dominio, repeat=len(nodos)):
+    colores = dict(zip(nodos, combinacion))
+    if cumple_reglas(colores):
+        soluciones.append(colores)
+
+print("Asignaciones posibles:", espacio)
+print("Soluciones válidas:", len(soluciones))
+if soluciones:
+    print("Una solución:", soluciones[0])
+else:
+    print("No alcanza con estos colores.")
+
+# La figura usa las soluciones que acabamos de calcular.
+mostrar_coloreos(nodos, aristas, soluciones, k)`}
+ ],
+ sudoku: [
+  {title:'Variables, dominios y pistas', description:'Cada casilla es una variable con dominio {1, 2, 3, 4}. El 0 solo indica un hueco: no es un valor permitido. Fijar una pista deja una sola opción en esa casilla.', code:`# Copiamos exactamente el Sudoku de la clase.
+pistas = [
+    [3, 1, 0, 0],
+    [0, 0, 3, 0],
+    [0, 0, 2, 3],
+    [0, 0, 0, 4]
+]
+dominio = {1, 2, 3, 4}
+assert len(pistas) == 4 and all(len(fila) == 4 for fila in pistas)
+assert all(valor in dominio | {0} for fila in pistas for valor in fila)
+
+# Sin pistas hay 16 decisiones; las pistas fijan algunas de ellas.
+huecos = sum(fila.count(0) for fila in pistas)
+print(f"Sin fijar pistas: 4^16 = {4 ** 16:,}")
+print(f"Con las pistas fijas: 4^{huecos} = {4 ** huecos:,}")
+mostrar_sudoku(pistas)`},
+  {title:'Restricciones: ¿qué puede ir aquí?', description:'AllDifferent significa «todos distintos». Quitamos los valores que ya aparecen en la fila, columna o caja. En Python contamos desde 0: la casilla x₁₄ se escribe como fila 0, columna 3.', code:`def candidatos(tablero, fila, columna):
+    # Miramos los números usados en la fila y en la columna.
+    usados = set(tablero[fila])
+    for r in range(4):
+        usados.add(tablero[r][columna])
+
+    # La división entera localiza el inicio de la caja de 2 × 2.
+    inicio_fila = (fila // 2) * 2
+    inicio_columna = (columna // 2) * 2
+    for r in range(inicio_fila, inicio_fila + 2):
+        for c in range(inicio_columna, inicio_columna + 2):
+            usados.add(tablero[r][c])
+
+    return dominio - usados
+
+# El 0 no afecta: nunca perteneció al dominio.
+print("Opciones para x₁₄:", sorted(candidatos(pistas, 0, 3)))`},
+  {title:'Buscar: probar, avanzar y volver', description:'Elegimos el primer hueco y probamos sus candidatos. Si una opción lleva a un callejón sin salida, volvemos para probar otra. Eso es backtracking. Antes comprobamos que las pistas sean compatibles.', code:`# Una pista tampoco puede repetir un número en sus grupos.
+tablero = [fila.copy() for fila in pistas]
+for r in range(4):
+    for c in range(4):
+        valor = tablero[r][c]
+        if valor != 0:
+            tablero[r][c] = 0
+            assert valor in candidatos(tablero, r, c), "Hay pistas que se contradicen."
+            tablero[r][c] = valor
+
+soluciones = []
+
+def buscar():
+    # Recorremos las casillas hasta encontrar un hueco.
+    for r in range(4):
+        for c in range(4):
+            if tablero[r][c] == 0:
+                for valor in sorted(candidatos(tablero, r, c)):
+                    tablero[r][c] = valor   # Probamos esta opción.
+                    buscar()               # Intentamos completar el resto.
+                    tablero[r][c] = 0       # Volvemos para probar otra.
+                return
+
+    # Llegamos aquí solo si ya no hay huecos.
+    soluciones.append([fila.copy() for fila in tablero])
+
+buscar()
+print("Búsqueda terminada.")`},
+  {title:'Ver y comprobar el resultado', description:'Una solución completa respeta las pistas y los doce grupos AllDifferent. Contar todas las soluciones permite saber si el Sudoku tiene una única respuesta.', code:`# Mostramos el número total y una cuadrícula, si existe.
+print("Soluciones encontradas:", len(soluciones))
+if len(soluciones) == 1:
+    print("Las pistas determinan una única solución.")
+elif not soluciones:
+    print("No existe una cuadrícula que cumpla todas las reglas.")
+else:
+    print("Hay varias soluciones: las pistas no fijan una sola respuesta.")
+
+if soluciones:
+    for fila in soluciones[0]:
+        print(*fila)
+
+mostrar_sudoku(pistas, soluciones)`}
+ ]
+};
+
+const STORAGE = 'cp-clase02-notebook-v1-' + (()=>{try{return JSON.parse(document.getElementById('saved-code').textContent)?._fileId || 'original';}catch(_){return 'original';}})();
+const $ = id => document.getElementById(id);
+const clone = value => JSON.parse(JSON.stringify(value));
+const validSaved = value => value && ['grafo','sudoku'].every(lab => Array.isArray(value[lab]) && value[lab].length >= DEFAULTS[lab].length && value[lab].length <= 30 && value[lab].every(c => c && typeof c.code === 'string' && typeof c.title === 'string' && typeof c.description === 'string'));
+let cells = clone(DEFAULTS);
+// Las celdas del archivo se recuperan incluso si el navegador bloquea localStorage.
+try { const embedded = JSON.parse($('saved-code').textContent); if(validSaved(embedded)) cells = embedded; } catch (_) {}
+try { const local = JSON.parse(localStorage.getItem(STORAGE)); if(validSaved(local)) cells = local; } catch (_) {}
+let activeLab = 'grafo', worker = null, ready = null, busy = false, current = null, sequence = 0, epoch = 0;
+const status = (text, state='ready') => { $('runtime').dataset.state = state; $('runtime').lastElementChild.textContent = text; };
+const message = text => { $('message').textContent = text; };
+const persist = () => { try { localStorage.setItem(STORAGE, JSON.stringify(cells)); } catch (_) { message('Tu navegador no permite guardar automáticamente. Usa «Guardar mi archivo».'); } };
+const element = (tag, className, text) => { const el=document.createElement(tag); if(className) el.className=className; if(text!==undefined) el.textContent=text; return el; };
+// Resaltado local: no necesita descargar un editor ni cambia el código Python.
+const PY_KEYWORDS=new Set('False None True and as assert async await break class continue def del elif else except finally for from global if import in is lambda nonlocal not or pass raise return try while with yield match case'.split(' '));
+const PY_BUILTINS=new Set('abs all any bool dict enumerate float int len list max min print range reversed round set sorted str sum tuple zip isinstance input open super'.split(' '));
+function highlightPython(source){
+ const escape=text=>text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+ // Las cadenas y los comentarios se reconocen antes que sus palabras internas.
+ const tokens=/#[^\n]*|[rRuUbBfF]{0,2}(?:"""[\s\S]*?(?:"""|$)|'''[\s\S]*?(?:'''|$)|"(?:\\.|[^"\\\n])*(?:"|(?=\n|$))|'(?:\\.|[^'\\\n])*(?:'|(?=\n|$)))|\b(?:0[xX][\da-fA-F_]+|\d[\d_]*(?:\.[\d_]*)?(?:[eE][+-]?\d+)?)\b|\b[A-Za-z_]\w*\b|(?:\*\*|\/\/|==|!=|<=|>=|:=|[-+*/%=<>])/g;
+ let result='',position=0;
+ for(const match of source.matchAll(tokens)){
+  const token=match[0];let kind='';
+  if(token.startsWith('#'))kind='comment';
+  else if(/^[rRuUbBfF]{0,2}["']/.test(token))kind='string';
+  else if(/^\d/.test(token))kind='number';
+  else if(PY_KEYWORDS.has(token))kind='keyword';
+  else if(PY_BUILTINS.has(token))kind='builtin';
+  else if(/^[-+*/%=<>!:]/.test(token))kind='operator';
+  result+=escape(source.slice(position,match.index));
+  result+=kind?`<span class="tok-${kind}">${escape(token)}</span>`:escape(token);
+  position=match.index+token.length;
+ }
+ return result+escape(source.slice(position));
+}
+function renderCells(lab) {
+ const container=$('cells-'+lab); container.replaceChildren();
+ cells[lab].forEach((cell,index)=>{
+  const card=element('article','cell'); card.id=`${lab}-cell-${index}`;
+  const top=element('div','cell-top'), title=element('div','cell-title');
+  title.append(element('span','number',String(index+1).padStart(2,'0')),element('h3','',cell.title));
+  const run=element('button','run','▶ Ejecutar'); run.setAttribute('aria-label',`Ejecutar celda ${index+1}: ${cell.title}`); run.onclick=()=>runCells(lab,[index]); top.append(title,run);
+  const label=element('label','editor-label'); label.htmlFor=`code-${lab}-${index}`; label.append(element('span','','Python · editable'),element('span','','Shift + Enter'));
+  const input=element('textarea','code'); input.id=label.htmlFor; input.value=cell.code; input.spellcheck=false; input.wrap='off'; input.autocapitalize='off'; input.setAttribute('autocorrect','off'); input.setAttribute('aria-label',`Código de la celda ${index+1}: ${cell.title}`); input.rows=Math.min(18,cell.code.split('\n').length+1);
+  const editor=element('div','editor'), colored=element('pre','highlight');colored.setAttribute('aria-hidden','true');editor.append(colored,input);
+  const paint=()=>{colored.innerHTML=highlightPython(input.value)+'\n';colored.scrollTop=input.scrollTop;colored.scrollLeft=input.scrollLeft;};
+  input.onscroll=()=>{colored.scrollTop=input.scrollTop;colored.scrollLeft=input.scrollLeft;};paint();
+  input.oninput=()=>{ cell.code=input.value; paint(); persist(); markDirty(lab,index); };
+  input.onkeydown=e=>{
+   if(e.key==='Enter'&&e.shiftKey){e.preventDefault();runCells(lab,[index]);}
+   if(e.key==='Tab'&&!e.shiftKey){e.preventDefault();const start=input.selectionStart,end=input.selectionEnd;input.setRangeText('    ',start,end,'end');input.dispatchEvent(new Event('input'));}
+  };
+  const foot=element('div','cell-foot'), state=element('span','cell-status','Sin ejecutar'); state.setAttribute('role','status'); const expand=element('button','','Expandir código'); expand.onclick=()=>{const expanded=expand.dataset.expanded==='true';input.rows=expanded?Math.min(18,input.value.split('\n').length+1):input.value.split('\n').length+1;expand.dataset.expanded=String(!expanded);expand.textContent=expanded?'Expandir código':'Contraer código';};foot.append(state,expand);
+  const output=element('pre','output');output.hidden=true;output.setAttribute('aria-label',`Salida de la celda ${index+1}`);
+  card.append(top,element('p','explain',cell.description),label,editor,foot,output);container.append(card);
+ });
+}
+function markDirty(lab,index){
+ cells[lab].slice(index).forEach((_,offset)=>{const card=$(`${lab}-cell-${index+offset}`);card.dataset.dirty='true';card.querySelector('.cell-status').textContent='Pendiente de ejecutar';});
+ $(lab==='grafo'?'graph-state':'sudoku-state').textContent='Vista anterior · vuelve a ejecutar';
+}
+function switchLab(lab){activeLab=lab;for(const name of ['grafo','sudoku']){const selected=name===lab;$('panel-'+name).hidden=!selected;$('tab-'+name).setAttribute('aria-selected',String(selected));$('tab-'+name).tabIndex=selected?0:-1;}}
+document.querySelectorAll('.tab').forEach(button=>{button.onclick=()=>switchLab(button.dataset.lab);button.onkeydown=e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const next=e.key==='Home'?'grafo':e.key==='End'?'sudoku':activeLab==='grafo'?'sudoku':'grafo';switchLab(next);$('tab-'+next).focus();}};});
+document.querySelectorAll('.add-cell').forEach(button=>button.onclick=()=>{const lab=button.dataset.lab;if(cells[lab].length>=30)return;const previous=[...$('cells-'+lab).children];cells[lab].push({title:'Mi experimento',description:'Escribe tu Python. Puedes usar las variables y funciones de las celdas anteriores.',code:'# Prueba aquí una idea y muestra el resultado con print().\n'});renderCells(lab);previous.forEach((card,index)=>$('cells-'+lab).children[index].replaceWith(card));persist();const last=$(`code-${lab}-${cells[lab].length-1}`);last.focus();});
+
+// El motor vive en un worker: un bucle de Python no bloquea los botones.
+// Cada ejercicio tiene su propio diccionario de variables.
+const HELPERS = `
+import json as _json
+from aula import dibujar as _dibujar
+
+def mostrar_grafo(nodos, aristas, colores=None, k=4):
+    assert 1 <= k <= 5, "Usa entre 1 y 5 colores."
+    assert nodos and len(nodos) == len(set(nodos)), "Los nombres de los nodos deben ser únicos."
+    assert all(a in nodos and b in nodos for a, b in aristas), "Una arista usa un nodo que no está en la lista."
+    assert all(n in nodos and isinstance(c, int) and 1 <= c <= k for n, c in (colores or {}).items()), "Revisa los nombres y colores de la asignación."
+    _dibujar(_json.dumps({"kind": "graph", "nodos": nodos, "aristas": aristas, "k": k, "solutions": [colores] if colores else [], "solved": False}))
+
+def mostrar_coloreos(nodos, aristas, soluciones, k=4):
+    mostrar_grafo(nodos, aristas, {}, k)
+    assert all(set(s) == set(nodos) for s in soluciones), "Cada solución debe asignar todos los nodos."
+    assert all(isinstance(c, int) and 1 <= c <= k for s in soluciones for c in s.values()), "Hay colores fuera del dominio."
+    _dibujar(_json.dumps({"kind": "graph", "nodos": nodos, "aristas": aristas, "k": k, "solutions": soluciones, "solved": True}))
+
+def mostrar_sudoku(pistas, soluciones=None):
+    assert len(pistas) == 4 and all(len(f) == 4 for f in pistas), "La cuadrícula debe tener 4 filas y 4 columnas."
+    assert all(v in range(5) for f in pistas for v in f), "Usa solo 0, 1, 2, 3 y 4."
+    if soluciones is not None:
+        assert all(len(s) == 4 and all(len(f) == 4 for f in s) for s in soluciones), "Revisa la forma de las soluciones."
+        assert all(v in range(1, 5) for s in soluciones for f in s for v in f), "Las soluciones solo usan 1, 2, 3 y 4."
+    _dibujar(_json.dumps({"kind": "sudoku", "pistas": pistas, "solutions": soluciones or [], "solved": soluciones is not None}))
+`;
+const WORKER_SOURCE = `
+let engine, outputSize=0;
+const spaces = {};
+function sendOutput(text){
+ if(outputSize>=30000)return;
+ const visible=String(text).slice(0,30000-outputSize);
+ outputSize+=visible.length+1;postMessage({type:'stdout',text:visible});
+ if(outputSize>=30000)postMessage({type:'stdout',text:'[Salida recortada: más de 30 000 caracteres.]'});
+}
+const boot = (async () => {
+ const {loadPyodide} = await import('https://cdn.jsdelivr.net/pyodide/v314.0.7/full/pyodide.mjs');
+ engine = await loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v314.0.7/full/',
+   stdout:sendOutput, stderr:sendOutput});
+ engine.registerJsModule('aula', {dibujar: data=>postMessage({type:'visual',data:JSON.parse(data)})});
+ postMessage({type:'ready'});
+})().catch(error=>{postMessage({type:'boot-error',error:String(error)});throw error;});
+self.onmessage = async ({data}) => {
+ try {
+  await boot;
+  outputSize=0;
+  if(data.reset && spaces[data.lab]){spaces[data.lab].destroy();delete spaces[data.lab];}
+  if(!spaces[data.lab]){
+   spaces[data.lab] = engine.runPython('dict()');
+   await engine.runPythonAsync(data.helpers,{globals:spaces[data.lab]});
+  }
+  const result = await engine.runPythonAsync(data.code,{globals:spaces[data.lab],filename:'celda_'+data.number+'.py'});
+  if(result !== undefined){sendOutput(String(result));if(result?.destroy)result.destroy();}
+  postMessage({type:'done'});
+ }catch(error){postMessage({type:'error',error:String(error)});}
+};`;
+let bootReject=null, jobResolve=null, bootTimer=null;
+function ensurePython(){
+ if(ready) return ready;
+ status('Cargando Python… la primera vez puede tardar','loading');
+ ready=new Promise((resolve,reject)=>{
+  bootReject=reject;
+  const url=URL.createObjectURL(new Blob([WORKER_SOURCE],{type:'text/javascript'}));
+  try { worker=new Worker(url,{type:'module'}); } catch(e){URL.revokeObjectURL(url);reject(e);return;}
+  URL.revokeObjectURL(url);
+  bootTimer=setTimeout(()=>{if(bootReject){bootReject(new Error('La descarga tardó demasiado. Revisa internet y vuelve a ejecutar.'));bootReject=null;}},120000);
+  worker.onmessage=({data})=>{
+   if(data.type==='ready'){clearTimeout(bootTimer);bootReject=null;status('Python listo');resolve();return;}
+   if(data.type==='boot-error'){clearTimeout(bootTimer);if(bootReject){bootReject(new Error(data.error));bootReject=null;}return;}
+   if(data.type==='stdout'&&current){const out=current.output;if(out.textContent.length<30000)out.textContent+=data.text+'\n';else if(!out.dataset.truncated){out.textContent+='\n[Salida recortada: más de 30 000 caracteres.]\n';out.dataset.truncated='true';}}
+   if(data.type==='visual'&&current){try{receiveVisual(data.data);}catch(e){current.output.textContent+='No se pudo dibujar: '+e.message+'\n';}}
+   if((data.type==='done'||data.type==='error')&&jobResolve){const done=jobResolve;jobResolve=null;done(data);}
+  };
+  worker.onerror=event=>{const error=new Error(event.message||'No se pudo cargar el motor de Python.');if(bootReject){clearTimeout(bootTimer);bootReject(error);bootReject=null;}else if(jobResolve){const done=jobResolve;jobResolve=null;done({type:'error',error:String(error)});}};
+ });
+ return ready;
+}
+function setBusy(value){busy=value;document.body.dataset.busy=String(value);$('stop').disabled=!value;document.querySelectorAll('.run,.run-all,.add-cell').forEach(b=>b.disabled=value);$('restore').disabled=value;}
+function resetPython(){
+ epoch++;clearTimeout(bootTimer);if(worker)worker.terminate();worker=null;ready=null;
+ if(bootReject){bootReject(new Error('Ejecución detenida.'));bootReject=null;}
+ if(jobResolve){const done=jobResolve;jobResolve=null;done({type:'cancelled'});}
+ if(current){current.card.querySelector('.cell-status').textContent='Detenida · vuelve a ejecutar';current.output.textContent+='\nEjecución detenida. Se reinició la memoria de Python.\n';}
+ current=null;sequence=0;setBusy(false);status('Python reiniciado','idle');
+ for(const lab of ['grafo','sudoku'])markDirty(lab,0);
+}
+async function runCells(lab,indexes,reset=false){
+ if(busy)return;
+ const runEpoch=epoch;setBusy(true);message('');
+ if(reset){markDirty(lab,0);for(const card of $('cells-'+lab).children){card.querySelector('.output').hidden=true;}}
+ try{
+  await ensurePython();if(epoch!==runEpoch)return;
+  for(const [position,index] of indexes.entries()){
+   if(epoch!==runEpoch)break;
+   const card=$(`${lab}-cell-${index}`), output=card.querySelector('.output');
+   output.hidden=false;output.classList.remove('error');output.textContent='';delete output.dataset.truncated;
+   card.querySelector('.cell-status').textContent='Ejecutando…';
+   current={lab,index,card,output};status(`Ejecutando ${lab==='grafo'?'coloreo':'Sudoku'} · celda ${index+1}`,'busy');
+   const start=performance.now();
+   const result=await new Promise(resolve=>{jobResolve=resolve;worker.postMessage({lab,code:cells[lab][index].code,number:index+1,helpers:HELPERS,reset:reset&&position===0});});
+   if(epoch!==runEpoch)break;
+   if(result.type==='error'){
+    output.classList.add('error');output.textContent+=result.error;card.querySelector('.cell-status').textContent='Revisa el error';card.dataset.dirty='true';
+    $(lab==='grafo'?'graph-state':'sudoku-state').textContent='Ejecución incompleta';
+    message('La ejecución se detuvo en esta celda. Corrige el código y ejecuta el ejercicio desde el inicio.');break;
+   }
+   card.dataset.dirty='false';sequence++;card.querySelector('.cell-status').textContent=`Ejecutada [${sequence}] · ${((performance.now()-start)/1000).toFixed(2)} s`;
+   if(!output.textContent)output.textContent='Listo. Esta celda no imprime texto.';
+  }
+  if(epoch===runEpoch)status('Python listo');
+ }catch(error){
+  if(epoch===runEpoch){if(worker)worker.terminate();worker=null;ready=null;status('No se pudo cargar Python','error');message('Revisa la conexión a internet y vuelve a pulsar Ejecutar. '+error.message);}
+ }finally{if(epoch===runEpoch){current=null;setBusy(false);}}
+}
+$('run-all').onclick=()=>runCells(activeLab,cells[activeLab].map((_,i)=>i),true);
+$('stop').onclick=()=>{resetPython();message('Se detuvo Python. Tu código sigue aquí; vuelve a ejecutar el ejercicio desde el inicio.');};
+$('restart').onclick=()=>{resetPython();message('Memoria de Python vacía. Tu código se conserva.');};
+$('restore').onclick=()=>{if(!confirm('¿Restaurar las celdas originales de este ejercicio? Se reemplazarán tus ediciones de esta pestaña.'))return;resetPython();cells[activeLab]=clone(DEFAULTS[activeLab]);renderCells(activeLab);persist();if(activeLab==='grafo'){graphData=clone(INITIAL_GRAPH);graphIndex=0;graphSelected=null;renderGraph();$('graph-state').textContent='Vista inicial';}else{sudokuData=clone(INITIAL_SUDOKU);sudokuIndex=0;showSolution=false;renderSudoku();$('sudoku-state').textContent='Vista inicial';}message('Ejercicio original restaurado.');};
+$('save-html').onclick=()=>{
+ const exportedCells={...cells,_fileId:globalThis.crypto?.randomUUID?.() || String(Date.now())};
+ const json=JSON.stringify(exportedCells).replace(/</g,'\\u003c');
+ const html=originalHTML.replace(/(<script id="saved-code" type="application\/json">)[\s\S]*?(<\/script>)/,(_,open,close)=>open+json+close);
+ const url=URL.createObjectURL(new Blob([html],{type:'text/html;charset=utf-8'}));const a=element('a');a.href=url;a.download='clase02-mi-laboratorio-cp.html';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);message('Archivo descargado con tus celdas. Ábrelo en un navegador con internet y ejecuta el ejercicio.');
+};
+
+// Dibujos: solo reciben los datos que las celdas envían desde Python.
+const COLORS=['#bed2f5','#d8c3f0','#f0c5b8','#baddd4','#eedda2'];
+const INITIAL_GRAPH={nodos:['ARE','CUS','APU','AYA','PUN','MOQ','TAC'],aristas:[['TAC','MOQ'],['TAC','PUN'],['MOQ','ARE'],['MOQ','PUN'],['ARE','PUN'],['ARE','CUS'],['ARE','APU'],['ARE','AYA'],['CUS','PUN'],['CUS','APU'],['CUS','AYA'],['APU','AYA']],k:4,solutions:[],solved:false};
+const INITIAL_SUDOKU={pistas:[[3,1,0,0],[0,0,3,0],[0,0,2,3],[0,0,0,4]],solutions:[],solved:false};
+let graphData=clone(INITIAL_GRAPH),graphIndex=0,graphSelected=null,sudokuData=clone(INITIAL_SUDOKU),sudokuIndex=0,showSolution=false,selectedSquare=[0,3];
+const num=value=>new Intl.NumberFormat('fr-FR').format(value).replace(/\u202f/g,' ');
+const superscript=value=>String(value).split('').map(c=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[Number(c)]).join('');
+const svgEl=(tag,attrs,text)=>{const el=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const [key,value]of Object.entries(attrs))el.setAttribute(key,value);if(text!==undefined)el.textContent=text;return el;};
+function receiveVisual(data){
+ const label=`Salida Python · celda ${current.index+1}`;
+ if(data.kind==='graph'){graphData=data;graphIndex=0;graphSelected=null;renderGraph();$('graph-state').textContent=label;}
+ if(data.kind==='sudoku'){sudokuData=data;sudokuIndex=0;showSolution=false;renderSudoku();$('sudoku-state').textContent=label;}
+}
+function renderGraph(){
+ const {nodos,aristas,k,solutions,solved}=graphData;const colors=solutions[graphIndex]||{};
+ $('graph-x').textContent=`X · ${nodos.length} variables`;$('graph-d').textContent=`D · colores 1…${k}`;$('graph-c').textContent=`C · ${aristas.length} desigualdades`;
+ const fixed={APU:[216,38],AYA:[216,143],ARE:[43,220],CUS:[387,220],MOQ:[123,298],PUN:[335,323],TAC:[215,359]};
+ const positions={};nodos.forEach((node,i)=>positions[node]=fixed[node]||[215+155*Math.cos(i*2*Math.PI/nodos.length),195+145*Math.sin(i*2*Math.PI/nodos.length)]);
+ const graph=$('graph');graph.replaceChildren();const conflicts=[];
+ const neighbors=new Set(aristas.filter(e=>e.includes(graphSelected)).flat());
+ aristas.forEach(([a,b])=>{const p=positions[a],q=positions[b];if(!p||!q)return;const conflict=colors[a]!==undefined&&colors[a]===colors[b];if(conflict)conflicts.push([a,b]);const highlight=graphSelected&&(a===graphSelected||b===graphSelected);graph.append(svgEl('line',{x1:p[0],y1:p[1],x2:q[0],y2:q[1],stroke:conflict?'#a65750':highlight?'#8273a6':'#b9c3df','stroke-width':conflict||highlight?3:1.7,'stroke-dasharray':conflict?'6 4':'none'}));});
+ nodos.forEach(node=>{const [x,y]=positions[node],color=colors[node],g=svgEl('g',{class:'graph-node',role:'button',tabindex:0,'aria-label':`${node}, ${color?'color '+color:'sin asignar'}. Resaltar vecinos.`});g.append(svgEl('circle',{cx:x,cy:y,r:25,fill:color?COLORS[(color-1)%COLORS.length]:'#f9f7ff',stroke:node===graphSelected?'#7654a1':neighbors.has(node)?'#a895c1':'#a6adc9','stroke-width':node===graphSelected?3:1.5}));g.append(svgEl('text',{x,y:y-1,'text-anchor':'middle',fill:'#30364f','font-size':11,'font-weight':650},node));g.append(svgEl('text',{x,y:y+14,'text-anchor':'middle',fill:'#5f5877','font-size':11},color?String(color):'·'));g.onclick=()=>{graphSelected=graphSelected===node?null:node;renderGraph();};g.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();g.onclick();}};graph.append(g);});
+ const legend=$('graph-legend');legend.replaceChildren();for(let i=0;i<k;i++){const item=element('span'),swatch=element('i','swatch');swatch.style.background=COLORS[i];item.append(swatch,document.createTextNode(`Color ${i+1}`));legend.append(item);}
+ $('graph-space').textContent=`${k}${superscript(nodos.length)} = ${num(k**nodos.length)}`;$('graph-count').textContent=solved?num(solutions.length):'Por calcular';
+ $('graph-gallery').hidden=!solved||!solutions.length;$('graph-index').textContent=`Coloreo ${graphIndex+1} de ${num(solutions.length)}`;
+ $('graph-prev').disabled=solutions.length<2;$('graph-next').disabled=solutions.length<2;
+ const note=$('graph-note');note.classList.toggle('bad',conflicts.length>0);
+ if(conflicts.length)note.textContent='Hay conflictos: '+conflicts.map(e=>e.join('–')).join(', ')+'. Esos vecinos repiten color.';
+ else if(graphSelected)note.textContent=`${graphSelected} debe tener un color distinto al de ${[...neighbors].filter(n=>n!==graphSelected).join(', ')}.`;
+ else if(solved&&!solutions.length)note.textContent=k===3&&INITIAL_GRAPH.aristas.every(([a,b])=>aristas.some(e=>(e[0]===a&&e[1]===b)||(e[0]===b&&e[1]===a)))?'No hay solución con 3 colores: ARE, CUS, APU y AYA están conectados todos entre sí; necesitan cuatro colores distintos.':'No se encontró ninguna solución con este modelo y este dominio.';
+ else if(solved)note.textContent=`Este coloreo respeta las ${aristas.length} aristas. Cambia de solución con las flechas. Contamos colores etiquetados: intercambiar sus números produce otra asignación.`;
+ else note.textContent='Selecciona un nodo para resaltar sus vecinos. Ejecuta Python para calcular y pintar los coloreos.';
+}
+function stepGraph(delta){graphIndex=(graphIndex+delta+graphData.solutions.length)%graphData.solutions.length;renderGraph();}
+$('graph-prev').onclick=()=>stepGraph(-1);$('graph-next').onclick=()=>stepGraph(1);
+function allowedGroups(board,r,c){
+ const remaining=values=>[1,2,3,4].filter(v=>!values.includes(v));
+ const row=board[r].filter((_,j)=>j!==c),column=board.filter((_,i)=>i!==r).map(line=>line[c]),box=[];
+ for(let i=Math.floor(r/2)*2;i<Math.floor(r/2)*2+2;i++)for(let j=Math.floor(c/2)*2;j<Math.floor(c/2)*2+2;j++)if(i!==r||j!==c)box.push(board[i][j]);
+ const groups=[remaining(row),remaining(column),remaining(box)];return [...groups,groups[0].filter(v=>groups[1].includes(v)&&groups[2].includes(v))];
+}
+function renderSudoku(){
+ const {pistas,solutions,solved}=sudokuData,board=showSolution&&solutions.length?solutions[sudokuIndex]:pistas;const [r,c]=selectedSquare;
+ $('show-solution').disabled=!solutions.length;$('show-clues').setAttribute('aria-pressed',String(!showSolution));$('show-solution').setAttribute('aria-pressed',String(showSolution));
+ $('show-clues').classList.toggle('primary',!showSolution);$('show-solution').classList.toggle('primary',showSolution);
+ const container=$('board');container.replaceChildren();
+ board.forEach((row,i)=>row.forEach((value,j)=>{const button=element('button','square',value?String(value):'·');button.classList.toggle('given',!!pistas[i][j]);button.classList.toggle('new',!pistas[i][j]&&!!value);button.classList.toggle('selected',i===r&&j===c);button.classList.toggle('peer',i===r||j===c||(Math.floor(i/2)===Math.floor(r/2)&&Math.floor(j/2)===Math.floor(c/2)));button.setAttribute('aria-label',`Fila ${i+1}, columna ${j+1}, ${value?'valor '+value:'vacía'}${pistas[i][j]?', pista':''}`);button.setAttribute('aria-pressed',String(i===r&&j===c));button.append(element('span','cell-coord',`${i+1},${j+1}`));button.onclick=()=>{selectedSquare=[i,j];renderSudoku();$('board').children[i*4+j].focus({preventScroll:true});};container.append(button);}));
+ const groups=allowedGroups(board,r,c),candidates=$('candidates');candidates.replaceChildren();candidates.append(element('strong','small',`Casilla x${'₁₂₃₄'[r]}${'₁₂₃₄'[c]} · fila ${r+1}, columna ${c+1}`));
+ const lines=element('div','candidate-lines');['Permite la fila','Permite la columna','Permite la caja'].forEach((label,index)=>{const line=element('div');line.append(element('span','',label),element('strong','',formatSet(groups[index])));lines.append(line);});candidates.append(lines);
+ const note=element('div','note');const options=groups[3];const fixed=pistas[r][c];
+ if(fixed)note.textContent=`Esta es una pista: su dominio queda en {${fixed}}. ${options.includes(fixed)?'Es compatible con sus grupos.':'Hay una contradicción con otra casilla.'}`;
+ else note.textContent=`Opciones comunes: ${formatSet(options)}. ${options.length===1?'Solo queda una opción.':options.length===0?'Esta casilla no tiene un valor posible.':'Aún hay que decidir; estas opciones no garantizan completar todo el Sudoku.'}`;
+ if((fixed&&!options.includes(fixed))||!options.length)note.classList.add('bad');candidates.append(note);
+ const holes=pistas.flat().filter(v=>v===0).length;$('sudoku-c').textContent=`C · 12 AllDifferent + ${16-holes} pistas`;$('sudoku-space').textContent=`4${superscript(holes)} = ${num(4**holes)}`;$('sudoku-count').textContent=solved?num(solutions.length):'Por calcular';
+ $('sudoku-gallery').hidden=!solved||!solutions.length;$('sudoku-index').textContent=showSolution?`Solución ${sudokuIndex+1} de ${solutions.length}`:`${solutions.length===1?'Una solución encontrada':num(solutions.length)+' soluciones'} · pulsa Solución`;
+ $('sudoku-prev').disabled=solutions.length<2;$('sudoku-next').disabled=solutions.length<2;
+}
+function formatSet(values){return values.length?'{'+values.join(', ')+'}':'∅';}
+$('show-clues').onclick=()=>{showSolution=false;renderSudoku();};$('show-solution').onclick=()=>{showSolution=true;renderSudoku();};
+function stepSudoku(delta){sudokuIndex=(sudokuIndex+delta+sudokuData.solutions.length)%sudokuData.solutions.length;showSolution=true;renderSudoku();}
+$('sudoku-prev').onclick=()=>stepSudoku(-1);$('sudoku-next').onclick=()=>stepSudoku(1);
+for(const lab of ['grafo','sudoku'])renderCells(lab);
+renderGraph();renderSudoku();
+</script>
+</body>
+</html>
