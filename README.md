@@ -12,4 +12,10 @@ El código se ejecuta en el navegador. Este repositorio contiene únicamente la 
 
 ## Publicación
 
-GitHub Pages sirve la rama `main`, carpeta raíz. Para actualizar la aplicación, reemplaza `index.html` por la versión actual de `artefacto/clase02-laboratorio-cp.html` en el repositorio del curso y haz push.
+GitHub Pages sirve la rama `gh-pages`, carpeta raíz. La aplicación está publicada en https://etorresram.github.io/clase02-cp-lab/.
+
+Para actualizarla, reemplaza `index.html` por la versión actual de `artefacto/clase02-laboratorio-cp.html` en el repositorio del curso, crea el commit en `main` y sincroniza ambas ramas:
+
+```bash
+git push --atomic origin main HEAD:gh-pages
+```
