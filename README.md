@@ -4,7 +4,7 @@ Aplicación para coloreo de grafos y Sudoku 4 × 4, con celdas editables de Pyth
 
 **Aplicación:** https://etorresram.github.io/clase02-cp-lab/
 
-Pulsa **Ejecutar ejercicio**, cambia el código y vuelve a ejecutarlo. La aplicación identifica variables, dominios y restricciones y distingue el espacio de búsqueda del número de soluciones. El editor incluye colores de sintaxis.
+Pulsa **Ejecutar ejercicio**, cambia el código y vuelve a ejecutarlo. La aplicación identifica variables, dominios y restricciones y distingue el espacio de búsqueda del número de soluciones. El editor incluye colores de sintaxis y comentarios que explican cada paso. El diseño usa un estilo editorial: fondo marfil, títulos con serif y acentos rojos, sin morado.
 
 No necesitas instalar Python ni crear una cuenta. Usa un navegador actualizado e internet para cargar Pyodide 314.0.7 desde jsDelivr. **Guardar mi archivo** descarga un HTML con tus celdas editadas para llevarlo a otra computadora; no se garantiza funcionamiento sin conexión.
 

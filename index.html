@@ -6,33 +6,68 @@
 <meta name="description" content="Laboratorio de la clase 2: coloreo de grafos y Sudoku con celdas editables de Python que se ejecutan en el navegador.">
 <title>Clase 2 · Laboratorio de restricciones</title>
 <style>
-:root{color-scheme:light;--paper:#fbfaff;--ink:#30364f;--muted:#60677e;--line:#dddff0;--green:#e0dcfa;--purple:#f6dfd9;--blue:#e3edff;--peach:#f8e3d7;--red:#8c423d}
-*{box-sizing:border-box}body{margin:0;background:#eeeefa;color:var(--ink);font:16px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,textarea,select{font:inherit}button,a,input,textarea,summary,select{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{opacity:.5;cursor:default}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid #7860a6;outline-offset:4px}button,a{touch-action:manipulation}a{color:#65519b}button{border:1px solid #d6d5e9;border-radius:10px;padding:9px 14px;min-height:42px;background:#fcfbff;color:var(--ink);font-size:14px;font-weight:600}button:hover:not(:disabled){background:#ede7fc}button.primary{background:#dfd3f7;border-color:#c8b5e7}button.primary:hover:not(:disabled){background:#d2c1f1}h1,h2,h3,p{margin-top:0}h1,h2,h3{line-height:1.16}h1{font-size:clamp(32px,4.8vw,56px);letter-spacing:-.055em;font-weight:650;margin-bottom:16px}h2{font-size:30px;letter-spacing:-.035em;margin-bottom:10px}h3{font-size:18px;margin-bottom:10px}p{color:var(--muted)}small,.small{font-size:13px}.shell{max-width:1450px;margin:22px auto;background:var(--paper);padding:30px clamp(18px,3vw,46px);border:1px solid #dddcef;border-radius:26px;box-shadow:0 20px 60px #61528710}.topline,.row,.toolbar,.cell-top,.view-heading{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.topline{justify-content:space-between;font-size:13px;color:var(--muted);padding-bottom:28px}.course{letter-spacing:.12em;text-transform:uppercase;font-weight:650}.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:center;padding:4px 0 28px}.hero p{max-width:59ch;margin-bottom:0}.intro-card{border:1px solid #d7dff3;background:#e8effc;border-radius:18px;padding:20px 24px;font-size:14px}.intro-card ol{margin:8px 0 0;padding-left:20px}.intro-card li{padding:3px 0}.tabs{display:flex;gap:6px;background:#efedf9;border:1px solid #dedcef;border-radius:14px;padding:6px;margin-bottom:24px}.tab{flex:1;background:transparent;border:0;padding:13px}.tab[aria-selected="true"]{background:var(--purple);color:#794c47;box-shadow:0 2px 8px #7166850b}.tab:first-child[aria-selected="true"]{background:var(--green);color:#4f3d79}.tab span{opacity:.65;margin-right:10px}.toolbar{padding:14px 0;margin-bottom:14px;justify-content:space-between}.toolbar p{margin:0}.runtime{display:inline-flex;align-items:center;gap:8px;font-size:13px}.dot{height:8px;width:8px;border-radius:50%;background:#a9afc7}.runtime[data-state="ready"] .dot{background:#4c807d}.runtime[data-state="loading"] .dot,.runtime[data-state="busy"] .dot{background:#b28b4f}.runtime[data-state="error"] .dot{background:#b35c53}.layout{display:grid;grid-template-columns:minmax(0,1.24fr) minmax(340px,.86fr);gap:28px;align-items:start}.notebook,.visual{min-width:0}.section-lead{margin:8px 0 20px}.section-lead p{margin-bottom:12px;font-size:15px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{font-size:12px;padding:5px 9px;border-radius:7px;background:#eee9fa;color:#5a4f7d}.cell{border:1px solid var(--line);border-radius:15px;background:#fffefe;margin-bottom:18px;overflow:hidden;transition:border-color .2s}.cell:focus-within{border-color:#ac98ce}.cell-top{padding:14px 17px;background:#eeeafa;justify-content:space-between}.cell-title{display:flex;align-items:center;gap:10px}.number{display:grid;place-items:center;border:1px solid #d7cce9;border-radius:7px;width:28px;height:28px;background:#fcfaff;font:12px ui-monospace,monospace}.cell h3{margin:0;font-size:15px;line-height:1.3}.cell .explain{font-size:14px;padding:14px 17px 0;margin:0}.editor-label{display:flex;justify-content:space-between;padding:10px 17px 6px;font-size:11px;color:#686b87;text-transform:uppercase;letter-spacing:.07em}.code{display:block;width:100%;resize:vertical;min-height:100px;max-height:850px;border:0;border-top:1px solid #e9e4f5;background:#f5f2fc;color:#34425d;padding:15px 17px;font:13px/1.7 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;tab-size:4;white-space:pre;overflow:auto;outline-offset:-3px!important}.cell-foot{padding:9px 17px;border-top:1px solid #e6e3f1;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;color:#62617e}.cell-foot button{font-size:12px;padding:5px 10px;min-height:32px}.output{margin:0;padding:15px 17px;font:13px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;background:#edf2ff;border-top:1px solid #d8e0f4;white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto}.output.error{color:#823c38;background:#faf0eb}.cell-status{font-size:12px}.cell[data-dirty="true"] .cell-status{color:#886129}.visual{position:sticky;top:18px;border:1px solid #d7daf0;border-radius:20px;background:#edf0fc;overflow:hidden}.view-heading{justify-content:space-between;padding:19px 22px 12px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.13em;font-weight:650;color:#656585}.view-heading h3{font-size:20px;margin:5px 0 0}.view-state{font-size:11px;border:1px solid #d3d7ed;border-radius:7px;padding:4px 8px;background:#f7f8ff}.view-body{padding:0 22px 21px}.view-body p{font-size:14px;margin-bottom:12px}.visual svg{width:100%;display:block;max-height:315px}.graph-node{cursor:pointer}.graph-node:focus{outline:0}.graph-node:focus circle{stroke:#79589e;stroke-width:4}.legend{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;margin:3px 0 15px}.legend span{display:flex;align-items:center;gap:5px}.swatch{display:inline-block;width:13px;height:13px;border-radius:50%;border:1px solid #70668b30}.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.stat{background:#fafaff;border:1px solid #dce0f0;border-radius:11px;padding:12px}.stat span{display:block;font-size:11px;color:#626d87}.stat strong{font-size:22px;font-weight:650;letter-spacing:-.035em}.note{padding:12px 14px;border:1px solid #ccd9f2;background:var(--blue);border-radius:10px;color:#3f557e;font-size:13px;line-height:1.5}.note p{margin:0;font-size:13px;color:inherit}.bad{background:#f4e1dc;border-color:#e5bfb5;color:#853f36}.gallery{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:12px 0}.gallery button{padding:6px 11px;font-size:14px}.gallery span{font-size:12px;text-align:center}.exercise{border-left:3px solid #c4a3cf;background:#f8e9e6;border-radius:0 11px 11px 0;padding:16px 18px;margin:22px 0}.exercise h3{font-size:16px}.exercise p{font-size:14px;margin:0}.formula{font:15px/1.5 ui-monospace,monospace;margin:10px 0;color:#4c5380}.board-wrap{display:flex;justify-content:center;margin:22px 0 12px}.sudoku{display:grid;grid-template-columns:repeat(4,1fr);width:270px;max-width:100%;border:2px solid #8686aa;border-radius:4px;overflow:hidden;background:#fffefe}.square{display:grid;place-items:center;aspect-ratio:1;min-height:0;border:0;border-right:1px solid #dadaeb;border-bottom:1px solid #dadaeb;border-radius:0;padding:0;font-size:23px;font-weight:500;background:#fffefe;position:relative}.square:nth-child(4n+2){border-right:2px solid #8686aa}.square:nth-child(n+5):nth-child(-n+8){border-bottom:2px solid #8686aa}.square:nth-child(4n){border-right:0}.square:nth-child(n+13){border-bottom:0}.square.given{font-weight:750;color:#4f4376;background:#ebe3f8}.square.peer{background:#e2ebfb}.square.selected{background:#f3d9cb!important;box-shadow:inset 0 0 0 3px #b4775e;z-index:1}.square .cell-coord{font-size:8px;position:absolute;top:2px;left:5px;color:#6a6481;font-weight:400}.square.new{color:#315e94}.candidate-lines{font-size:13px;margin:10px 0 12px;display:grid;gap:6px}.candidate-lines>div{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid #d8ddef;padding-bottom:4px}.candidate-lines strong{font-variant-numeric:tabular-nums}.space-note{font-size:12px;padding-top:12px;margin:0!important}.help{border:1px solid #dedff0;border-radius:12px;padding:15px 18px;margin-top:24px;font-size:13px;background:#f1f0fa}.help summary{font-weight:600;cursor:pointer}.help p{margin:12px 0 0}.help code{font-size:12px}.footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:20px;margin-top:30px;font-size:12px;color:var(--muted)}.global-message{margin:0 0 14px;padding:12px 16px;border-radius:10px;background:#ece2f7;font-size:14px;color:#584278}.global-message:empty{display:none}[hidden]{display:none!important}body[data-busy="true"] .run,body[data-busy="true"] .run-all{opacity:.5;pointer-events:none}
-
-/* Tema Aurora: lavanda, azul y durazno; acentos suaves y texto oscuro. */
-body{background:radial-gradient(ellipse at 5% 0%,#ded7f5 0,transparent 43%),radial-gradient(ellipse at 100% 12%,#fae3db 0,transparent 36%),#eef0fa;background-attachment:fixed}
-.shell{box-shadow:0 28px 85px #61528715;border-color:#e0dbef}
-.hero{background:radial-gradient(circle at 94% 0%,#f5dcd770,transparent 43%),linear-gradient(120deg,#eee7fb,#e8effc);border:1px solid #ded8ef;border-radius:23px;padding:28px 30px;margin:0 0 24px;gap:28px}
-h1{color:#303550}.hero h1 .accent{color:#795a9d}.hero>div>p{color:#59617c}.intro-card{background:#ffffff91;border-color:#ffffffc9;box-shadow:0 10px 28px #76619b09}.intro-card strong{color:#5a4780}.intro-card li::marker{color:#80659e;font-weight:700}
-.topline>span:last-child{background:#e7e6f8;color:#655581;padding:5px 12px;border-radius:99px}.course{color:#695989}
-.tabs{padding:7px;box-shadow:inset 0 1px 3px #72618e08}.tab{border-radius:10px}.tab[aria-selected="true"]{box-shadow:0 3px 12px #78547712}.tab span{display:inline-grid;place-items:center;width:25px;height:25px;border-radius:7px;background:#ffffff70;opacity:1;font-size:11px}
-button{transition:background .16s,border-color .16s,box-shadow .16s}button.primary{color:#503a77;box-shadow:0 4px 12px #6d509713}.toolbar{border-bottom:1px solid #e6e0f2;padding:4px 0 19px;margin-bottom:6px}.runtime{padding:7px 11px;border-radius:99px;background:#eeedf9;color:#5f5c7b}
-.cell{box-shadow:0 7px 22px #61528707}.cell:focus-within{box-shadow:0 0 0 3px #c5b4e51c,0 7px 22px #61528708}.number{color:#735395;font-weight:700}.cell-top .run{color:#654d87;border-color:#d9ceeb;background:#faf7ff}.chip:nth-child(2){background:#e3ecfc;color:#465f88}.chip:nth-child(3){background:#f7e5df;color:#83584e}
-.visual{background:linear-gradient(160deg,#eef0fd,#f5f0fb);box-shadow:0 12px 32px #635a9110}.view-heading{border-top:4px solid #b4a2d9}.view-heading h3{color:#45426c}.stat:first-child{background:#e6edfc;border-color:#d1ddf6}.stat:last-child{background:#f8e6df;border-color:#efd5ca}.stat strong{color:#4f4b78}.stat:last-child strong{color:#835649}.stat span{color:#60647e}.square:hover:not(:disabled){background:#ede6fa}.square.selected:hover{background:#f3d9cb}
-.exercise{border-color:#d5ad9f;background:#f9eae4}.exercise h3{color:#875b50}.output{border-left:3px solid #aabce3;color:#3c5277}.output.error{border-left-color:#d7978d}.help{background:#f0edf9}.footer{color:#78728a}
-/* El texto coloreado y el editor comparten medidas para mantener las líneas alineadas. */
-.editor{position:relative;background:#f5f2fc;overflow:hidden}
-.code,.highlight{font:13px/1.7 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;letter-spacing:normal;font-variant-ligatures:none;tab-size:4;white-space:pre;word-wrap:normal;overflow-wrap:normal;padding:15px 17px;border:0;border-top:1px solid #e9e4f5;border-radius:0}
-.highlight{position:absolute;inset:0;margin:0;pointer-events:none;overflow:hidden;color:#34425d;background:transparent}
-.code{position:relative;display:block;width:100%;background:transparent;color:transparent;-webkit-text-fill-color:transparent;caret-color:#5c437e;resize:vertical;overflow:auto}
-.code::selection{background:#d7caf2aa;color:transparent}.tok-keyword{color:#7942a0;font-weight:400}.tok-string{color:#146b69}.tok-comment{color:#656c82}.tok-number{color:#9b4d29}.tok-builtin{color:#2e60ac}.tok-operator{color:#74577c}
-.syntax-legend{display:flex;align-items:center;gap:7px 17px;flex-wrap:wrap;font-size:12px;color:#687089;padding:2px 0 19px}.syntax-legend span{display:inline-flex;align-items:center;gap:5px}.syntax-legend i{display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor}
-@media(max-width:1000px){.code,.highlight{font-size:12px}}
-@media(max-width:760px){.hero{padding:24px 20px;gap:18px;border-radius:18px}.code,.highlight{font-size:12px;padding:13px}.hero h1{font-size:38px}.topline{font-size:11px}.course{letter-spacing:.07em}.syntax-legend{font-size:11px;gap:5px 12px}}
+/* Tema editorial: papel marfil, tinta oscura y acentos rojos. */
+:root{color-scheme:light;--paper:#fffdf8;--ink:#262626;--muted:#62605b;--line:#d9d5cc;--red:#c32725;--blue:#edf1f2}
+*{box-sizing:border-box}
+body{margin:0;background:#eae7df;color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+button,input,textarea,select{font:inherit}button,a,input,textarea,summary,select{-webkit-tap-highlight-color:transparent}
+a{color:#a82120;text-underline-offset:3px}button,a{touch-action:manipulation}
+button{cursor:pointer;border:1px solid #bbb8b0;border-radius:3px;padding:9px 14px;min-height:42px;background:#fffdf8;color:#343434;font-size:14px;font-weight:600;transition:background .15s,border-color .15s}
+button:disabled{opacity:.5;cursor:default}button:hover:not(:disabled){background:#eeeae1;border-color:#88857e}
+button.primary{background:var(--red);color:#fff;border-color:var(--red)}button.primary:hover:not(:disabled){background:#a41e1c;border-color:#a41e1c}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid #ba4b31;outline-offset:4px}
+h1,h2,h3,p{margin-top:0}h1,h2,h3{line-height:1.13}h1,h2{font-family:Georgia,"Times New Roman",serif}
+h1{font-size:clamp(37px,4.8vw,62px);letter-spacing:-.045em;font-weight:700;margin-bottom:18px}
+h2{font-size:32px;letter-spacing:-.025em;margin-bottom:10px}h3{font-size:18px;margin-bottom:10px}p{color:var(--muted)}small,.small{font-size:13px}
+.shell{max-width:1450px;margin:24px auto;background:var(--paper);padding:28px clamp(18px,3vw,46px);border:1px solid #d6d1c7;border-top:6px solid var(--red);box-shadow:0 15px 55px #23201a09}
+.topline,.row,.toolbar,.cell-top,.view-heading{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.topline{justify-content:space-between;font-size:12px;color:var(--muted);padding-bottom:20px;border-bottom:1px solid #302e2b}
+.course{letter-spacing:.11em;text-transform:uppercase;font-weight:700;color:#a61f1e}
+.topline>span:last-child{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5c5953}
+.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:42px;align-items:center;padding:32px 0 30px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.hero h1 .accent{color:#b72624}.hero p{max-width:58ch;margin-bottom:0;color:#55534e}
+.intro-card{border-left:3px solid #c32725;background:#f2efe7;padding:20px 24px;font-size:14px}.intro-card strong{color:#3d3932}.intro-card ol{margin:9px 0 0;padding-left:20px}.intro-card li{padding:3px 0}.intro-card li::marker{color:#ab2924;font-weight:700}
+.tabs{display:flex;gap:6px;border-bottom:1px solid #bdb8ae;margin-bottom:24px}
+.tab{flex:1;border:0;border-bottom:3px solid transparent;border-radius:0;background:transparent;padding:13px;color:#68635b}
+.tab[aria-selected="true"]{color:#a61f1e;background:#f4ede6;border-bottom-color:var(--red)}.tab:hover:not(:disabled){border-bottom-color:#a49b90}
+.tab span{display:inline-grid;place-items:center;width:26px;height:26px;margin-right:9px;font:12px Georgia,serif;border:1px solid #c9c1b5;background:#fffaf2;color:#7d4338}
+.toolbar{padding:0 0 17px;margin-bottom:6px;border-bottom:1px solid var(--line);justify-content:space-between}.toolbar p{margin:0}
+.runtime{display:inline-flex;align-items:center;gap:8px;font-size:12px;padding:6px 0;color:#67635c}.dot{height:7px;width:7px;border-radius:50%;background:#a4a198}
+.runtime[data-state="ready"] .dot{background:#517461}.runtime[data-state="loading"] .dot,.runtime[data-state="busy"] .dot{background:#ab782c}.runtime[data-state="error"] .dot{background:#bb4032}
+.layout{display:grid;grid-template-columns:minmax(0,1.24fr) minmax(340px,.86fr);gap:28px;align-items:start}.notebook,.visual{min-width:0}
+.section-lead{margin:8px 0 22px}.section-lead p{margin-bottom:12px;font-size:15px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{font-size:12px;padding:4px 9px;background:#eeeae1;color:#555048;border:1px solid #e0dbd1}.chip:nth-child(2){background:#e8eef0;color:#405d66}.chip:nth-child(3){background:#f4e5dc;color:#874936}
+.cell{border:1px solid var(--line);border-radius:4px;background:#fffdf9;margin-bottom:20px;overflow:hidden}.cell:focus-within{border-color:#ad7762;box-shadow:0 0 0 2px #b5523410}
+.cell-top{padding:13px 17px;background:#efede6;border-bottom:1px solid #ddd8cd;justify-content:space-between}.cell-title{display:flex;align-items:center;gap:10px}.number{display:grid;place-items:center;flex-shrink:0;border:1px solid #c6b6a6;width:28px;height:28px;background:#fffaf2;color:#a03324;font:14px Georgia,serif}.cell h3{margin:0;font-size:15px;line-height:1.3}.cell-top .run{background:#fffaf3;color:#9e2721;border-color:#d6b5a5}
+.cell .explain{font-size:14px;padding:14px 17px 0;margin:0}.editor-label{display:flex;justify-content:space-between;padding:10px 17px 6px;font-size:11px;color:#6c665b;text-transform:uppercase;letter-spacing:.07em}
+/* Las dos capas usan las mismas medidas: el cursor y las letras coloreadas quedan alineados. */
+.editor{position:relative;background:#f7f5ef;overflow:hidden}
+.code,.highlight{font:13px/1.7 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;letter-spacing:normal;font-variant-ligatures:none;tab-size:4;white-space:pre;word-wrap:normal;overflow-wrap:normal;padding:15px 17px;border:0;border-top:1px solid #e7e1d5;border-radius:0}
+.highlight{position:absolute;inset:0;margin:0;pointer-events:none;overflow:hidden;color:#343a40;background:transparent}
+.code{position:relative;display:block;width:100%;resize:vertical;min-height:100px;max-height:850px;background:transparent;color:transparent;-webkit-text-fill-color:transparent;caret-color:#b32822;overflow:auto;outline-offset:-3px!important}
+.code::selection{background:#ead7bcaa;color:transparent}.tok-keyword{color:#a52825;font-weight:400}.tok-string{color:#246354}.tok-comment{color:#69675e}.tok-number{color:#90501c}.tok-builtin{color:#255d83}.tok-operator{color:#5c4b3d}
+.syntax-legend{display:flex;align-items:center;gap:7px 17px;flex-wrap:wrap;font-size:12px;color:#686156;padding:2px 0 19px}.syntax-legend span{display:inline-flex;align-items:center;gap:5px}.syntax-legend i{display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor}
+.cell-foot{padding:9px 17px;border-top:1px solid #e5dfd3;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;color:#6d6559}.cell-foot button{font-size:12px;padding:5px 10px;min-height:32px}.cell-status{font-size:12px}.cell[data-dirty="true"] .cell-status{color:#855c24}
+.output{margin:0;padding:15px 17px;font:13px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;background:#edf1ee;color:#364c40;border-top:1px solid #d7dfd8;border-left:3px solid #819c89;white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto}.output.error{color:#8b2923;background:#faeee5;border-left-color:#c57d69}
+.visual{position:sticky;top:18px;border:1px solid #d4cfc3;border-top:4px solid #be2d26;border-radius:3px;background:#f3f0e7;overflow:hidden}
+.view-heading{justify-content:space-between;padding:17px 22px 12px}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.13em;font-weight:700;color:#a43529}.view-heading h3{font-family:Georgia,serif;font-size:23px;margin:5px 0 0;color:#38342e}.view-state{font-size:11px;border-bottom:1px solid #c7beb0;padding:3px 0;color:#716858}
+.view-body{padding:0 22px 21px}.view-body p{font-size:14px;margin-bottom:12px}.visual svg{width:100%;display:block;max-height:315px}.graph-node{cursor:pointer}.graph-node:focus{outline:0}.graph-node:focus circle{stroke:#ac3027;stroke-width:4}
+.legend{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;margin:3px 0 15px}.legend span{display:flex;align-items:center;gap:5px}.swatch{display:inline-block;width:13px;height:13px;border-radius:50%;border:1px solid #695b4530}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.stat{background:#fcfaf4;border-top:2px solid #9f9c92;padding:12px}.stat:last-child{border-top-color:#c32725;background:#f6e9df}.stat span{display:block;font-size:11px;color:#675d50}.stat strong{font-size:22px;font-weight:650;letter-spacing:-.035em;color:#3c3a35}.stat:last-child strong{color:#9b2921}
+.note{padding:12px 14px;border-left:3px solid #94a5aa;background:#e8edef;color:#3e5359;font-size:13px;line-height:1.5}.note p{margin:0;font-size:13px;color:inherit}.bad{background:#f5e2d9;border-color:#cb8b70;color:#8c3624}
+.gallery{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:12px 0}.gallery button{padding:6px 11px;font-size:14px}.gallery span{font-size:12px;text-align:center}
+.exercise{border-left:3px solid #b83e2c;background:#f3e8dd;padding:16px 18px;margin:22px 0}.exercise h3{font-size:16px;color:#923829}.exercise p{font-size:14px;margin:0}.formula{font:15px/1.5 ui-monospace,monospace;margin:10px 0;color:#4d514b}
+.board-wrap{display:flex;justify-content:center;margin:22px 0 12px}.sudoku{display:grid;grid-template-columns:repeat(4,1fr);width:270px;max-width:100%;border:2px solid #777166;overflow:hidden;background:#fffdf8}
+.square{display:grid;place-items:center;aspect-ratio:1;min-height:0;border:0;border-right:1px solid #d6d0c5;border-bottom:1px solid #d6d0c5;border-radius:0;padding:0;font-size:23px;font-weight:500;background:#fffdf8;position:relative}
+.square:nth-child(4n+2){border-right:2px solid #777166}.square:nth-child(n+5):nth-child(-n+8){border-bottom:2px solid #777166}.square:nth-child(4n){border-right:0}.square:nth-child(n+13){border-bottom:0}
+.square.given{font-weight:750;color:#3f3d36;background:#eae4d7}.square.peer{background:#e4ecee}.square.selected{background:#f3d7c8!important;box-shadow:inset 0 0 0 3px #b6452d;z-index:1}.square .cell-coord{font-size:8px;position:absolute;top:2px;left:5px;color:#6e685c;font-weight:400}.square.new{color:#27617c}
+.candidate-lines{font-size:13px;margin:10px 0 12px;display:grid;gap:6px}.candidate-lines>div{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid #dad3c7;padding-bottom:4px}.candidate-lines strong{font-variant-numeric:tabular-nums}.space-note{font-size:12px;padding-top:12px;margin:0!important}
+.help{border-top:1px solid #a8a193;border-bottom:1px solid #d7d0c4;padding:16px 0;margin-top:24px;font-size:13px}.help summary{font-weight:600;cursor:pointer}.help p{margin:12px 0 0}.help code{font-size:12px}
+.footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid #3c3933;padding-top:20px;margin-top:30px;font-size:12px;color:var(--muted)}
+.global-message{margin:0 0 14px;padding:12px 16px;border-left:3px solid #b44430;background:#f4e7d7;font-size:14px;color:#73412b}.global-message:empty{display:none}[hidden]{display:none!important}body[data-busy="true"] .run,body[data-busy="true"] .run-all{opacity:.5;pointer-events:none}
+@media(min-width:1500px){.shell{margin:30px auto}}
+@media(max-width:1000px){.layout{grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:18px}.shell{margin:10px;padding:24px}.hero{gap:20px}.code,.highlight{font-size:12px}.view-body{padding:0 16px 18px}.view-heading{padding:17px 16px 10px}}
+@media(max-width:760px){.shell{margin:0;border-radius:0;border:0;border-top:5px solid var(--red);padding:22px 16px}.hero{grid-template-columns:1fr;gap:20px;padding:25px 0}.hero h1{max-width:15ch;font-size:41px}.intro-card{padding:15px 19px}.layout{display:flex;flex-direction:column}.visual{position:relative;top:0;width:100%;order:-1}.notebook{width:100%}.visual svg{max-height:280px}.view-body{padding:0 18px 18px}.topline{padding-bottom:16px;font-size:11px}.course{letter-spacing:.06em}.toolbar{align-items:flex-start;gap:16px}.tab{font-size:13px;padding:12px 8px}.tab span{margin-right:5px}.cell-top{padding:12px}.cell-title{gap:7px}.cell h3{font-size:14px}.code,.highlight{font-size:12px;padding:13px}.stat-row{margin:10px 0}.stat{padding:9px 12px}.stat strong{font-size:19px}.board-wrap{margin:14px 0}.sudoku{width:236px}.syntax-legend{font-size:11px;gap:5px 12px}}
 @media(forced-colors:active){.highlight{display:none}.code{color:CanvasText;-webkit-text-fill-color:CanvasText;caret-color:CanvasText}.code::selection{background:Highlight;color:HighlightText}}
-
-@media(min-width:1500px){.shell{margin:30px auto}}@media(max-width:1000px){.layout{grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:18px}.shell{margin:10px;padding:24px}.hero{gap:20px}.code{font-size:12px}.view-body{padding:0 16px 18px}.view-heading{padding:17px 16px 10px}}
-@media(max-width:760px){.shell{margin:0;border-radius:0;border:0;padding:22px 16px}.hero{grid-template-columns:1fr;gap:20px}.hero h1{max-width:14ch}.intro-card{padding:15px 19px}.layout{display:flex;flex-direction:column}.visual{position:relative;top:0;width:100%;order:-1}.notebook{width:100%}.visual svg{max-height:280px}.view-body{padding:0 18px 18px}.topline{padding-bottom:20px}.toolbar{align-items:flex-start;gap:16px}.tab{font-size:13px;padding:12px 8px}.tab span{margin-right:5px}.cell-top{padding:12px}.cell-title{gap:7px}.cell h3{font-size:14px}.code{font-size:12px;padding:13px}.stat-row{margin:10px 0}.stat{padding:9px 12px}.stat strong{font-size:19px}.board-wrap{margin:14px 0}.sudoku{width:236px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -70,13 +105,19 @@ const originalHTML = '<!doctype html>\n' + document.documentElement.outerHTML;
 const DEFAULTS = {
  grafo: [
   {title:'Variables y dominios', description:'Cada nodo es una variable. Su dominio contiene k colores. Antes de comprobar las aristas, cada uno de los siete nodos puede elegir cualquiera de esos colores.', code:`# Un número representa un color. Prueba después con 3 o 5.
+# Cantidad de colores disponibles: cambia este número para experimentar.
 k = 4
+# Cada nombre identifica una variable: debemos decidir su color.
 nodos = ["ARE", "CUS", "APU", "AYA", "PUN", "MOQ", "TAC"]
+# range llega hasta k sin incluir k + 1; list guarda los colores en una lista.
 dominio = list(range(1, k + 1))
 
 # Multiplicamos las opciones de las siete variables.
+# len cuenta los nodos y ** calcula una potencia: k opciones por cada nodo.
 espacio = k ** len(nodos)
+# print muestra el resultado debajo de esta celda.
 print("Dominio de cada nodo:", dominio)
+# La f permite insertar valores entre llaves; :, separa los miles.
 print(f"Espacio de búsqueda: {k}^{len(nodos)} = {espacio:,}")`},
   {title:'Restricciones: los vecinos no repiten', description:'Cada pareja de la lista es una arista. La función devuelve False en cuanto encuentra dos vecinos con el mismo color.', code:`# Estas son las doce incompatibilidades del grafo de clase.
 aristas = [
@@ -86,34 +127,57 @@ aristas = [
     ("CUS", "APU"), ("CUS", "AYA"), ("APU", "AYA")
 ]
 
+# def crea una función reutilizable; colores relaciona cada nodo con su color.
 def cumple_reglas(colores):
     # Revisamos una arista a la vez.
+    # En cada vuelta, a y b son los nombres de los extremos de una arista.
     for a, b in aristas:
+        # Los corchetes consultan el color de un nodo; == pregunta si son
+        # iguales.
         if colores[a] == colores[b]:
+            # Si encontramos una repetición, rechazamos esta asignación y
+            # salimos.
             return False
+    # Solo llegamos aquí si todas las parejas respetaron la regla.
     return True
 
+# Esta ayuda dibuja el modelo. {} significa que todavía no asignamos colores.
 mostrar_grafo(nodos, aristas, {}, k)
+# Contamos las aristas: cada una aporta una restricción.
 print("Restricciones:", len(aristas), "pares con distinto color.")`},
-  {title:'Buscar y contar las soluciones', description:'product genera las combinaciones del espacio de búsqueda. Conservamos solo las que cumplen todas las reglas. El dibujo permite recorrerlas.', code:`from itertools import product
+  {title:'Buscar y contar las soluciones', description:'product genera las combinaciones del espacio de búsqueda. Conservamos solo las que cumplen todas las reglas. El dibujo permite recorrerlas.', code:`# Importamos product: genera todas las combinaciones de las opciones.
+from itertools import product
 
 # En este laboratorio usamos hasta cinco colores para que sea ágil.
+# assert detiene la ejecución con este mensaje si la condición no se cumple.
 assert 1 <= k <= 5, "Prueba con un número de colores entre 1 y 5."
+# Empezamos con una lista vacía donde guardaremos las soluciones válidas.
 soluciones = []
 
+# product elige un color por nodo; repeat indica cuántas elecciones hacemos.
 for combinacion in product(dominio, repeat=len(nodos)):
+    # zip empareja nombres y colores; dict permite consultar, por ejemplo,
+    # colores["ARE"].
     colores = dict(zip(nodos, combinacion))
+    # Conservamos la combinación únicamente si cumple todas las restricciones.
     if cumple_reglas(colores):
+        # append añade esta asignación a la lista de soluciones.
         soluciones.append(colores)
 
+# Este conteo incluye también las asignaciones que incumplen reglas.
 print("Asignaciones posibles:", espacio)
+# len cuenta solo las asignaciones aceptadas.
 print("Soluciones válidas:", len(soluciones))
+# Una lista no vacía se interpreta como True: hay al menos una solución.
 if soluciones:
+    # El índice 0 selecciona el primer elemento de la lista.
     print("Una solución:", soluciones[0])
 else:
     print("No alcanza con estos colores.")
 
 # La figura usa las soluciones que acabamos de calcular.
+# Esta ayuda dibuja las soluciones calculadas y permite recorrerlas con las
+# flechas.
 mostrar_coloreos(nodos, aristas, soluciones, k)`}
  ],
  sudoku: [
@@ -124,73 +188,125 @@ pistas = [
     [0, 0, 2, 3],
     [0, 0, 0, 4]
 ]
+# Las llaves crean un conjunto: estos son los cuatro valores permitidos.
 dominio = {1, 2, 3, 4}
+# Comprobamos el tamaño; all exige que cada fila tenga cuatro casillas.
 assert len(pistas) == 4 and all(len(fila) == 4 for fila in pistas)
+# | une conjuntos: aquí aceptamos 1–4 y el 0 que representa un hueco.
 assert all(valor in dominio | {0} for fila in pistas for valor in fila)
 
 # Sin pistas hay 16 decisiones; las pistas fijan algunas de ellas.
+# count(0) cuenta los huecos de una fila; sum suma los de todas las filas.
 huecos = sum(fila.count(0) for fila in pistas)
+# Antes de fijar pistas, las 16 variables tienen cuatro opciones cada una.
 print(f"Sin fijar pistas: 4^16 = {4 ** 16:,}")
+# Las pistas tienen una sola opción; solo los huecos aportan factores de 4.
 print(f"Con las pistas fijas: 4^{huecos} = {4 ** huecos:,}")
+# Dibujamos el problema con sus pistas, todavía sin resolver.
 mostrar_sudoku(pistas)`},
-  {title:'Restricciones: ¿qué puede ir aquí?', description:'AllDifferent significa «todos distintos». Quitamos los valores que ya aparecen en la fila, columna o caja. En Python contamos desde 0: la casilla x₁₄ se escribe como fila 0, columna 3.', code:`def candidatos(tablero, fila, columna):
+  {title:'Restricciones: ¿qué puede ir aquí?', description:'AllDifferent significa «todos distintos». Quitamos los valores que ya aparecen en la fila, columna o caja. En Python contamos desde 0: la casilla x₁₄ se escribe como fila 0, columna 3.', code:`# La función recibe un tablero y la posición de la casilla que queremos
+# completar.
+def candidatos(tablero, fila, columna):
     # Miramos los números usados en la fila y en la columna.
+    # set reúne los valores de la fila sin repetirlos; los índices comienzan en
+    # 0.
     usados = set(tablero[fila])
+    # range(4) recorre los índices 0, 1, 2 y 3.
     for r in range(4):
+        # add incorpora el valor de esa fila y de la columna elegida.
         usados.add(tablero[r][columna])
 
     # La división entera localiza el inicio de la caja de 2 × 2.
+    # // es división entera: las cajas empiezan en la fila 0 o en la fila 2.
     inicio_fila = (fila // 2) * 2
+    # Hacemos lo mismo para hallar la primera columna de la caja.
     inicio_columna = (columna // 2) * 2
+    # Estos dos bucles recorren las cuatro casillas de la caja.
     for r in range(inicio_fila, inicio_fila + 2):
         for c in range(inicio_columna, inicio_columna + 2):
+            # Añadimos cada número de la caja al conjunto de valores usados.
             usados.add(tablero[r][c])
 
+    # La diferencia de conjuntos quita los usados y devuelve las opciones
+    # restantes.
     return dominio - usados
 
 # El 0 no afecta: nunca perteneció al dominio.
+# sorted ordena las opciones para leerlas; (0, 3) es la fila 1, columna 4.
 print("Opciones para x₁₄:", sorted(candidatos(pistas, 0, 3)))`},
   {title:'Buscar: probar, avanzar y volver', description:'Elegimos el primer hueco y probamos sus candidatos. Si una opción lleva a un callejón sin salida, volvemos para probar otra. Eso es backtracking. Antes comprobamos que las pistas sean compatibles.', code:`# Una pista tampoco puede repetir un número en sus grupos.
+# Copiamos cada fila para trabajar sin modificar las pistas originales.
 tablero = [fila.copy() for fila in pistas]
+# range(4) recorre los índices 0, 1, 2 y 3.
 for r in range(4):
+    # Para cada fila r recorremos sus cuatro columnas c.
     for c in range(4):
+        # Leemos el contenido de la casilla situada en la fila r y la columna
+        # c.
         valor = tablero[r][c]
+        # != significa distinto: solo revisamos las casillas que son pistas.
         if valor != 0:
+            # Retiramos la pista un momento para que no se compare consigo
+            # misma.
             tablero[r][c] = 0
+            # La pista debe ser compatible con las otras casillas de su fila,
+            # columna y caja.
             assert valor in candidatos(tablero, r, c), "Hay pistas que se contradicen."
+            # Devolvemos la pista a su sitio una vez comprobada.
             tablero[r][c] = valor
 
+# Empezamos con una lista vacía donde guardaremos las soluciones válidas.
 soluciones = []
 
+# Esta función puede llamarse a sí misma para completar un hueco tras otro.
 def buscar():
     # Recorremos las casillas hasta encontrar un hueco.
+    # range(4) recorre los índices 0, 1, 2 y 3.
     for r in range(4):
+        # Para cada fila r recorremos sus cuatro columnas c.
         for c in range(4):
+            # Cuando encontramos un 0, tenemos una decisión pendiente.
             if tablero[r][c] == 0:
+                # Probamos solo los valores permitidos en esta casilla, de
+                # menor a mayor.
                 for valor in sorted(candidatos(tablero, r, c)):
                     tablero[r][c] = valor   # Probamos esta opción.
                     buscar()               # Intentamos completar el resto.
                     tablero[r][c] = 0       # Volvemos para probar otra.
+                # Terminamos esta llamada después de explorar el hueco; la
+                # llamada anterior continúa.
                 return
 
     # Llegamos aquí solo si ya no hay huecos.
+    # Guardamos una copia para que los siguientes intentos no cambien esta
+    # solución.
     soluciones.append([fila.copy() for fila in tablero])
 
+# Iniciamos la búsqueda; la función guardará todos los tableros completos
+# válidos.
 buscar()
 print("Búsqueda terminada.")`},
   {title:'Ver y comprobar el resultado', description:'Una solución completa respeta las pistas y los doce grupos AllDifferent. Contar todas las soluciones permite saber si el Sudoku tiene una única respuesta.', code:`# Mostramos el número total y una cuadrícula, si existe.
+# Contamos todas las cuadrículas que sobrevivieron a las restricciones.
 print("Soluciones encontradas:", len(soluciones))
+# Si encontramos exactamente una, el Sudoku tiene solución única.
 if len(soluciones) == 1:
     print("Las pistas determinan una única solución.")
+# elif revisa otro caso; not comprueba aquí que la lista esté vacía.
 elif not soluciones:
     print("No existe una cuadrícula que cumpla todas las reglas.")
 else:
     print("Hay varias soluciones: las pistas no fijan una sola respuesta.")
 
+# Una lista no vacía se interpreta como True: hay al menos una solución.
 if soluciones:
+    # Recorremos las cuatro filas de la primera solución.
     for fila in soluciones[0]:
+        # El asterisco separa los números para imprimirlos sin corchetes ni
+        # comas.
         print(*fila)
 
+# Enviamos a la figura las pistas y las soluciones obtenidas por Python.
 mostrar_sudoku(pistas, soluciones)`}
  ]
 };
@@ -203,10 +319,20 @@ let cells = clone(DEFAULTS);
 // Las celdas del archivo se recuperan incluso si el navegador bloquea localStorage.
 try { const embedded = JSON.parse($('saved-code').textContent); if(validSaved(embedded)) cells = embedded; } catch (_) {}
 try { const local = JSON.parse(localStorage.getItem(STORAGE)); if(validSaved(local)) cells = local; } catch (_) {}
+const PREVIOUS_DEFAULT_CODES = {"grafo": ["# Un número representa un color. Prueba después con 3 o 5.\nk = 4\nnodos = [\"ARE\", \"CUS\", \"APU\", \"AYA\", \"PUN\", \"MOQ\", \"TAC\"]\ndominio = list(range(1, k + 1))\n\n# Multiplicamos las opciones de las siete variables.\nespacio = k ** len(nodos)\nprint(\"Dominio de cada nodo:\", dominio)\nprint(f\"Espacio de búsqueda: {k}^{len(nodos)} = {espacio:,}\")", "# Estas son las doce incompatibilidades del grafo de clase.\naristas = [\n    (\"TAC\", \"MOQ\"), (\"TAC\", \"PUN\"), (\"MOQ\", \"ARE\"),\n    (\"MOQ\", \"PUN\"), (\"ARE\", \"PUN\"), (\"ARE\", \"CUS\"),\n    (\"ARE\", \"APU\"), (\"ARE\", \"AYA\"), (\"CUS\", \"PUN\"),\n    (\"CUS\", \"APU\"), (\"CUS\", \"AYA\"), (\"APU\", \"AYA\")\n]\n\ndef cumple_reglas(colores):\n    # Revisamos una arista a la vez.\n    for a, b in aristas:\n        if colores[a] == colores[b]:\n            return False\n    return True\n\nmostrar_grafo(nodos, aristas, {}, k)\nprint(\"Restricciones:\", len(aristas), \"pares con distinto color.\")", "from itertools import product\n\n# En este laboratorio usamos hasta cinco colores para que sea ágil.\nassert 1 \u003c= k \u003c= 5, \"Prueba con un número de colores entre 1 y 5.\"\nsoluciones = []\n\nfor combinacion in product(dominio, repeat=len(nodos)):\n    colores = dict(zip(nodos, combinacion))\n    if cumple_reglas(colores):\n        soluciones.append(colores)\n\nprint(\"Asignaciones posibles:\", espacio)\nprint(\"Soluciones válidas:\", len(soluciones))\nif soluciones:\n    print(\"Una solución:\", soluciones[0])\nelse:\n    print(\"No alcanza con estos colores.\")\n\n# La figura usa las soluciones que acabamos de calcular.\nmostrar_coloreos(nodos, aristas, soluciones, k)"], "sudoku": ["# Copiamos exactamente el Sudoku de la clase.\npistas = [\n    [3, 1, 0, 0],\n    [0, 0, 3, 0],\n    [0, 0, 2, 3],\n    [0, 0, 0, 4]\n]\ndominio = {1, 2, 3, 4}\nassert len(pistas) == 4 and all(len(fila) == 4 for fila in pistas)\nassert all(valor in dominio | {0} for fila in pistas for valor in fila)\n\n# Sin pistas hay 16 decisiones; las pistas fijan algunas de ellas.\nhuecos = sum(fila.count(0) for fila in pistas)\nprint(f\"Sin fijar pistas: 4^16 = {4 ** 16:,}\")\nprint(f\"Con las pistas fijas: 4^{huecos} = {4 ** huecos:,}\")\nmostrar_sudoku(pistas)", "def candidatos(tablero, fila, columna):\n    # Miramos los números usados en la fila y en la columna.\n    usados = set(tablero[fila])\n    for r in range(4):\n        usados.add(tablero[r][columna])\n\n    # La división entera localiza el inicio de la caja de 2 × 2.\n    inicio_fila = (fila // 2) * 2\n    inicio_columna = (columna // 2) * 2\n    for r in range(inicio_fila, inicio_fila + 2):\n        for c in range(inicio_columna, inicio_columna + 2):\n            usados.add(tablero[r][c])\n\n    return dominio - usados\n\n# El 0 no afecta: nunca perteneció al dominio.\nprint(\"Opciones para x₁₄:\", sorted(candidatos(pistas, 0, 3)))", "# Una pista tampoco puede repetir un número en sus grupos.\ntablero = [fila.copy() for fila in pistas]\nfor r in range(4):\n    for c in range(4):\n        valor = tablero[r][c]\n        if valor != 0:\n            tablero[r][c] = 0\n            assert valor in candidatos(tablero, r, c), \"Hay pistas que se contradicen.\"\n            tablero[r][c] = valor\n\nsoluciones = []\n\ndef buscar():\n    # Recorremos las casillas hasta encontrar un hueco.\n    for r in range(4):\n        for c in range(4):\n            if tablero[r][c] == 0:\n                for valor in sorted(candidatos(tablero, r, c)):\n                    tablero[r][c] = valor   # Probamos esta opción.\n                    buscar()               # Intentamos completar el resto.\n                    tablero[r][c] = 0       # Volvemos para probar otra.\n                return\n\n    # Llegamos aquí solo si ya no hay huecos.\n    soluciones.append([fila.copy() for fila in tablero])\n\nbuscar()\nprint(\"Búsqueda terminada.\")", "# Mostramos el número total y una cuadrícula, si existe.\nprint(\"Soluciones encontradas:\", len(soluciones))\nif len(soluciones) == 1:\n    print(\"Las pistas determinan una única solución.\")\nelif not soluciones:\n    print(\"No existe una cuadrícula que cumpla todas las reglas.\")\nelse:\n    print(\"Hay varias soluciones: las pistas no fijan una sola respuesta.\")\n\nif soluciones:\n    for fila in soluciones[0]:\n        print(*fila)\n\nmostrar_sudoku(pistas, soluciones)"]};
+let refreshedComments=false;
+for(const lab of ['grafo','sudoku']){
+ DEFAULTS[lab].forEach((cell,index)=>{
+  if(cells[lab][index].code===PREVIOUS_DEFAULT_CODES[lab][index]){
+   cells[lab][index]={...cells[lab][index],code:cell.code};refreshedComments=true;
+  }
+ });
+}
 let activeLab = 'grafo', worker = null, ready = null, busy = false, current = null, sequence = 0, epoch = 0;
 const status = (text, state='ready') => { $('runtime').dataset.state = state; $('runtime').lastElementChild.textContent = text; };
 const message = text => { $('message').textContent = text; };
 const persist = () => { try { localStorage.setItem(STORAGE, JSON.stringify(cells)); } catch (_) { message('Tu navegador no permite guardar automáticamente. Usa «Guardar mi archivo».'); } };
+if(refreshedComments)persist();
 const element = (tag, className, text) => { const el=document.createElement(tag); if(className) el.className=className; if(text!==undefined) el.textContent=text; return el; };
 // Resaltado local: no necesita descargar un editor ni cambia el código Python.
 const PY_KEYWORDS=new Set('False None True and as assert async await break class continue def del elif else except finally for from global if import in is lambda nonlocal not or pass raise return try while with yield match case'.split(' '));
@@ -387,7 +513,7 @@ $('save-html').onclick=()=>{
 };
 
 // Dibujos: solo reciben los datos que las celdas envían desde Python.
-const COLORS=['#bed2f5','#d8c3f0','#f0c5b8','#baddd4','#eedda2'];
+const COLORS=['#e9b6a6','#b9ced8','#e4d39b','#bfd0b7','#d4c7b6'];
 const INITIAL_GRAPH={nodos:['ARE','CUS','APU','AYA','PUN','MOQ','TAC'],aristas:[['TAC','MOQ'],['TAC','PUN'],['MOQ','ARE'],['MOQ','PUN'],['ARE','PUN'],['ARE','CUS'],['ARE','APU'],['ARE','AYA'],['CUS','PUN'],['CUS','APU'],['CUS','AYA'],['APU','AYA']],k:4,solutions:[],solved:false};
 const INITIAL_SUDOKU={pistas:[[3,1,0,0],[0,0,3,0],[0,0,2,3],[0,0,0,4]],solutions:[],solved:false};
 let graphData=clone(INITIAL_GRAPH),graphIndex=0,graphSelected=null,sudokuData=clone(INITIAL_SUDOKU),sudokuIndex=0,showSolution=false,selectedSquare=[0,3];
@@ -406,8 +532,8 @@ function renderGraph(){
  const positions={};nodos.forEach((node,i)=>positions[node]=fixed[node]||[215+155*Math.cos(i*2*Math.PI/nodos.length),195+145*Math.sin(i*2*Math.PI/nodos.length)]);
  const graph=$('graph');graph.replaceChildren();const conflicts=[];
  const neighbors=new Set(aristas.filter(e=>e.includes(graphSelected)).flat());
- aristas.forEach(([a,b])=>{const p=positions[a],q=positions[b];if(!p||!q)return;const conflict=colors[a]!==undefined&&colors[a]===colors[b];if(conflict)conflicts.push([a,b]);const highlight=graphSelected&&(a===graphSelected||b===graphSelected);graph.append(svgEl('line',{x1:p[0],y1:p[1],x2:q[0],y2:q[1],stroke:conflict?'#a65750':highlight?'#8273a6':'#b9c3df','stroke-width':conflict||highlight?3:1.7,'stroke-dasharray':conflict?'6 4':'none'}));});
- nodos.forEach(node=>{const [x,y]=positions[node],color=colors[node],g=svgEl('g',{class:'graph-node',role:'button',tabindex:0,'aria-label':`${node}, ${color?'color '+color:'sin asignar'}. Resaltar vecinos.`});g.append(svgEl('circle',{cx:x,cy:y,r:25,fill:color?COLORS[(color-1)%COLORS.length]:'#f9f7ff',stroke:node===graphSelected?'#7654a1':neighbors.has(node)?'#a895c1':'#a6adc9','stroke-width':node===graphSelected?3:1.5}));g.append(svgEl('text',{x,y:y-1,'text-anchor':'middle',fill:'#30364f','font-size':11,'font-weight':650},node));g.append(svgEl('text',{x,y:y+14,'text-anchor':'middle',fill:'#5f5877','font-size':11},color?String(color):'·'));g.onclick=()=>{graphSelected=graphSelected===node?null:node;renderGraph();};g.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();g.onclick();}};graph.append(g);});
+ aristas.forEach(([a,b])=>{const p=positions[a],q=positions[b];if(!p||!q)return;const conflict=colors[a]!==undefined&&colors[a]===colors[b];if(conflict)conflicts.push([a,b]);const highlight=graphSelected&&(a===graphSelected||b===graphSelected);graph.append(svgEl('line',{x1:p[0],y1:p[1],x2:q[0],y2:q[1],stroke:conflict?'#a65750':highlight?'#907e62':'#b9b3a5','stroke-width':conflict||highlight?3:1.7,'stroke-dasharray':conflict?'6 4':'none'}));});
+ nodos.forEach(node=>{const [x,y]=positions[node],color=colors[node],g=svgEl('g',{class:'graph-node',role:'button',tabindex:0,'aria-label':`${node}, ${color?'color '+color:'sin asignar'}. Resaltar vecinos.`});g.append(svgEl('circle',{cx:x,cy:y,r:25,fill:color?COLORS[(color-1)%COLORS.length]:'#fffaf0',stroke:node===graphSelected?'#a53125':neighbors.has(node)?'#af9776':'#b7aa96','stroke-width':node===graphSelected?3:1.5}));g.append(svgEl('text',{x,y:y-1,'text-anchor':'middle',fill:'#34312b','font-size':11,'font-weight':650},node));g.append(svgEl('text',{x,y:y+14,'text-anchor':'middle',fill:'#61594a','font-size':11},color?String(color):'·'));g.onclick=()=>{graphSelected=graphSelected===node?null:node;renderGraph();};g.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();g.onclick();}};graph.append(g);});
  const legend=$('graph-legend');legend.replaceChildren();for(let i=0;i<k;i++){const item=element('span'),swatch=element('i','swatch');swatch.style.background=COLORS[i];item.append(swatch,document.createTextNode(`Color ${i+1}`));legend.append(item);}
  $('graph-space').textContent=`${k}${superscript(nodos.length)} = ${num(k**nodos.length)}`;$('graph-count').textContent=solved?num(solutions.length):'Por calcular';
  $('graph-gallery').hidden=!solved||!solutions.length;$('graph-index').textContent=`Coloreo ${graphIndex+1} de ${num(solutions.length)}`;
